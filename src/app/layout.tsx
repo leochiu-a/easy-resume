@@ -3,6 +3,7 @@ import { Inter } from "next/font/google"
 
 import { cn } from "@/lib/utils"
 
+import "./reset.css"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
