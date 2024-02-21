@@ -12,7 +12,7 @@ const BasicInformation: FC = () => {
   return (
     <>
       <Typography variant="h4">基本訊息</Typography>
-      <div className="grid grid-cols-2 gap-4 mt-4 mb-8">
+      <div className="mb-8 mt-4 grid grid-cols-2 gap-4">
         <Controller
           name="wantedJobTitle"
           control={control}

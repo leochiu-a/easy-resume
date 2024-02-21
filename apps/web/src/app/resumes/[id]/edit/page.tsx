@@ -172,14 +172,14 @@ export default function EditResumePage() {
     <FormProvider {...formMethods}>
       <form className="flex" onSubmit={handleSubmit(onSubmit)}>
         <div className="w-1/2 p-12">
-          <div className="text-lg flex justify-center">
+          <div className="flex justify-center text-lg">
             <div className="group flex">
               <input
-                className="absolute w-full h-full"
+                className="absolute h-full w-full"
                 {...register("resumeTitle")}
               />
               <div className="invisible">{resumeTitle}</div>
-              <Pencil className="opacity-0 group-hover:opacity-100 ml-2 transition duration-300" />
+              <Pencil className="ml-2 opacity-0 transition duration-300 group-hover:opacity-100" />
             </div>
           </div>
 
@@ -213,12 +213,12 @@ export default function EditResumePage() {
             )}
 
             <Typography variant="h4">個人簡介</Typography>
-            <div className="space-y-4 mt-4 mb-8">
+            <div className="mb-8 mt-4 space-y-4">
               <Textarea />
             </div>
           </div>
         </div>
-        <div className="w-1/2 bg-secondary h-screen flex justify-center items-center sticky top-0 overflow-auto">
+        <div className="sticky top-0 flex h-screen w-1/2 items-center justify-center overflow-auto bg-secondary">
           <ResumePreviewer />
         </div>
       </form>

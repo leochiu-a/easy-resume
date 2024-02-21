@@ -69,7 +69,7 @@ const MonthCalendar: FC<MonthCalendarProps> = ({
             >
               {format(firstDayCurrentYear, "yyyy")}
             </div>
-            <div className="flex items-center space-x-1 static">
+            <div className="static flex items-center space-x-1">
               <button
                 name="previous-year"
                 aria-label="Go to previous year"

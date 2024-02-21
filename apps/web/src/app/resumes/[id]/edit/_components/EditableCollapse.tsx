@@ -22,9 +22,9 @@ const EditableCollapse: FC<PropsWithChildren<EditableCollapseProps>> = ({
   children,
 }) => {
   return (
-    <Collapsible className="border rounded-md min-h-[6rem] px-5 py-4 hover:border-primary cursor-pointer group">
+    <Collapsible className="group min-h-[6rem] cursor-pointer rounded-md border px-5 py-4 hover:border-primary">
       <CollapsibleTrigger asChild>
-        <div className="flex justify-between items-center w-full h-[4rem]">
+        <div className="flex h-[4rem] w-full items-center justify-between">
           <div>
             {!title && !subtitle ? (
               <Typography variant="p" className="font-semibold">
@@ -49,7 +49,7 @@ const EditableCollapse: FC<PropsWithChildren<EditableCollapseProps>> = ({
 
       <Tooltip title="刪除">
         <button
-          className="absolute top-8 -right-8 font-medium opacity-0 group-hover:opacity-100 transition duration-100"
+          className="absolute -right-8 top-8 font-medium opacity-0 transition duration-100 group-hover:opacity-100"
           onClick={onRemove}
         >
           <Trash2 size={20} />

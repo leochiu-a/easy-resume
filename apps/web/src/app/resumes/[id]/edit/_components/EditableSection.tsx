@@ -77,7 +77,7 @@ const EmploymentHistoryCollapses: FC<{ resumeSectionsIndex: number }> = ({
             subtitle={formatSubtitle(resumeFields[index])}
             onRemove={() => remove(index)}
           >
-            <div className="grid grid-cols-2 mt-4 gap-4">
+            <div className="mt-4 grid grid-cols-2 gap-4">
               <Controller
                 control={control}
                 name={`resumeSections.${resumeSectionsIndex}.fields.${index}.field1`}
@@ -178,7 +178,7 @@ const EditableSection: FC<EditableSectionProps> = ({
           {description}
         </Typography>
       )}
-      <div className="space-y-4 mt-4 mb-8">
+      <div className="mb-8 mt-4 space-y-4">
         <EmploymentHistoryCollapses resumeSectionsIndex={resumeSectionIndex} />
       </div>
     </>

@@ -29,7 +29,7 @@ const SocialLinksSection: FC = () => {
         在以下區域填入任何連結或文字，請記得，對於工程師而言，一個出色的個人網站或
         Github 連結可以讓你的履歷更具吸引力。
       </Typography>
-      <div className="space-y-4 mt-4 mb-8">
+      <div className="mb-8 mt-4 space-y-4">
         {fields.map((field, index) => (
           <EditableCollapse
             key={field.id}
@@ -37,7 +37,7 @@ const SocialLinksSection: FC = () => {
             subtitle={socialLinks?.[index]?.url}
             onRemove={() => remove(index)}
           >
-            <div className="flex mt-4 gap-4">
+            <div className="mt-4 flex gap-4">
               <Controller
                 control={control}
                 name={`socialLinks.${index}.label`}

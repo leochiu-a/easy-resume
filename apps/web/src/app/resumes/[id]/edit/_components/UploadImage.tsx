@@ -40,10 +40,10 @@ const UploadImage: FC<UploadImageProps> = ({ onChange, value }) => {
       ) : (
         <>
           <label
-            className="flex items-center gap-4 cursor-pointer group [&>*]:transition [&>*]:duration-300"
+            className="group flex cursor-pointer items-center gap-4 [&>*]:transition [&>*]:duration-300"
             htmlFor="file"
           >
-            <div className="bg-gray-100 text-gray-400 group-hover:bg-sky-50 group-hover:text-sky-600 w-[4rem] h-[4rem] flex items-center justify-center">
+            <div className="flex h-[4rem] w-[4rem] items-center justify-center bg-gray-100 text-gray-400 group-hover:bg-sky-50 group-hover:text-sky-600">
               <User size={40} />
             </div>
             <span className="group-hover:text-sky-600">上傳頭像</span>
