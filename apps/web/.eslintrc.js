@@ -9,6 +9,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals",
     "prettier",
+    "plugin:tailwindcss/recommended",
   ],
   plugins: ["@typescript-eslint", "simple-import-sort"],
   parser: "@typescript-eslint/parser",
