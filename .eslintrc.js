@@ -3,6 +3,7 @@
  */
 module.exports = {
   extends: [
+    "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals",
     "prettier",
