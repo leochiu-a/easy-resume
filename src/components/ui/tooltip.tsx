@@ -39,7 +39,7 @@ const MyTooltip: FC<React.PropsWithChildren<TooltipProps>> = ({
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip>
-        <TooltipTrigger>{children}</TooltipTrigger>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent>
           <p>{title}</p>
         </TooltipContent>

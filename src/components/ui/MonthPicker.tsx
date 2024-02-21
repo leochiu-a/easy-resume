@@ -1,3 +1,4 @@
+import { FC, useEffect, useState } from "react"
 import {
   add,
   eachMonthOfInterval,
@@ -10,11 +11,10 @@ import {
   startOfToday,
 } from "date-fns"
 import {
+  Calendar as CalendarIcon,
   ChevronLeft,
   ChevronRight,
-  Calendar as CalendarIcon,
 } from "lucide-react"
-import { FC, useState } from "react"
 
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
@@ -46,12 +46,12 @@ const MonthCalendar: FC<MonthCalendarProps> = ({
   })
 
   const previousYear = () => {
-    let firstDayNextYear = add(firstDayCurrentYear, { years: -1 })
+    const firstDayNextYear = add(firstDayCurrentYear, { years: -1 })
     setCurrentYear(format(firstDayNextYear, "yyyy"))
   }
 
   const nextYear = () => {
-    let firstDayNextYear = add(firstDayCurrentYear, { years: 1 })
+    const firstDayNextYear = add(firstDayCurrentYear, { years: 1 })
     setCurrentYear(format(firstDayNextYear, "yyyy"))
   }
 
@@ -141,18 +141,24 @@ const MonthCalendar: FC<MonthCalendarProps> = ({
 export interface MonthPickerProps {
   onMonthChange?: (newMonth: Date) => void
   placeholder?: string
+  value?: Date | null
 }
 
 const MonthPicker: FC<MonthPickerProps> = ({
   onMonthChange,
   placeholder = "Pick a date",
+  value,
 }) => {
-  const [date, setDate] = useState<Date>()
+  const [date, setDate] = useState<Date | null | undefined>(null)
 
   const handleMonthChange = (newMonth: Date) => {
     setDate(newMonth)
     onMonthChange?.(newMonth)
   }
+
+  useEffect(() => {
+    setDate(value)
+  }, [value])
 
   return (
     <Popover>
@@ -169,7 +175,10 @@ const MonthPicker: FC<MonthPickerProps> = ({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <MonthCalendar currentMonth={date} onMonthChange={handleMonthChange} />
+        <MonthCalendar
+          currentMonth={date ?? new Date()}
+          onMonthChange={handleMonthChange}
+        />
       </PopoverContent>
     </Popover>
   )
