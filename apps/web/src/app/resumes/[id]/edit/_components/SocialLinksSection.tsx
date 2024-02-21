@@ -53,7 +53,7 @@ const SocialLinksSection: FC = () => {
         ))}
 
         <Button variant="ghost" onClick={() => append({ label: "", url: "" })}>
-          <Plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 size-4" />
           新增內容
         </Button>
       </div>

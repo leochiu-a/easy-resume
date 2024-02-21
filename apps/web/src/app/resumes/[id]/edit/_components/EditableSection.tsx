@@ -140,7 +140,7 @@ const EmploymentHistoryCollapses: FC<{ resumeSectionsIndex: number }> = ({
           })
         }
       >
-        <Plus className="mr-2 h-4 w-4" />
+        <Plus className="mr-2 size-4" />
         新增內容
       </Button>
     </>

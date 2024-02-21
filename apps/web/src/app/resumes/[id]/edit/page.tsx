@@ -175,7 +175,7 @@ export default function EditResumePage() {
           <div className="flex justify-center text-lg">
             <div className="group flex">
               <input
-                className="absolute h-full w-full"
+                className="absolute size-full"
                 {...register("resumeTitle")}
               />
               <div className="invisible">{resumeTitle}</div>
