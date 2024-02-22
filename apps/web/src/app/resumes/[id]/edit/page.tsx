@@ -29,7 +29,7 @@ export enum SectionType {
   Custom = "Custom",
 }
 
-enum FieldVariants {
+export enum FieldVariants {
   ComplexFieldsSection = "ComplexFieldsSection",
   SimpleFieldsSection = "SimpleFieldsSection",
 }
