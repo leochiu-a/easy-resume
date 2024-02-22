@@ -57,13 +57,13 @@ const LabeledDatePickerField = forwardRef<
         <MonthPicker
           onMonthChange={handleChangeFromMonth}
           placeholder="開始月份"
-          value={value?.from}
+          value={value?.from ? new Date(value.from) : null}
         />
         {!checked && (
           <MonthPicker
             onMonthChange={handleChangeToMonth}
             placeholder="結束月份"
-            value={value?.to}
+            value={value?.to ? new Date(value.to) : null}
           />
         )}
       </div>

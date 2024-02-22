@@ -1,7 +1,7 @@
 import React from "react"
 
-import { Typography } from "../../../../../components/ui/typography"
-import { useFormValues } from "../../../../../hooks/useFormValues"
+import { Typography } from "@/components/ui/typography"
+import { useFormValues } from "@/hooks/useFormValues"
 import { ComplexResumeSection, Resume, SimpleResumeSection } from "../page"
 
 const isSimpleResumeSection = (
@@ -56,9 +56,9 @@ const ResumePreviewer = () => {
             <div>
               {section.fields?.map((field, index) => (
                 <div key={index}>
-                  {isSimpleResumeSection(field) ? (
+                  {"field" in field ? (
                     <div>{field.field}</div>
-                  ) : (
+                  ) : "field1" in field ? (
                     <div>
                       <div>{field.field1}</div>
                       <div>{field.field2}</div>
@@ -66,6 +66,8 @@ const ResumePreviewer = () => {
                       <div>{field.timeline?.from}</div>
                       <div>{field.timeline?.to}</div>
                     </div>
+                  ) : (
+                    ""
                   )}
                 </div>
               ))}
