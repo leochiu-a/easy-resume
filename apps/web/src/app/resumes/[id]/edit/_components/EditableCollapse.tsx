@@ -10,8 +10,8 @@ import { Tooltip } from "../../../../../components/ui/tooltip"
 import { Typography } from "../../../../../components/ui/typography"
 
 interface EditableCollapseProps {
-  title: string
-  subtitle: string
+  title: string | null
+  subtitle: string | null
   onRemove: () => void
 }
 
@@ -35,7 +35,7 @@ const EditableCollapse: FC<PropsWithChildren<EditableCollapseProps>> = ({
                 <Typography variant="p" className="font-semibold">
                   {title}
                 </Typography>
-                <Typography variant="p" affects="removePMargin" className="">
+                <Typography variant="p" affects="removePMargin">
                   {subtitle}
                 </Typography>
               </>

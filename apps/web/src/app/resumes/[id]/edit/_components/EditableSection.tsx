@@ -30,11 +30,15 @@ const formatTitle = (
   field: SimpleResumeSection | ComplexResumeSection | undefined,
 ) => {
   if (!field) {
-    return ""
+    return null
   }
 
   if (isSimpleResumeSection(field)) {
     return field.field
+  }
+
+  if (field.field1.length === 0 && field.field2.length === 0) {
+    return null
   }
 
   return `${field.field1} - ${field.field2}`
@@ -44,14 +48,18 @@ const formatSubtitle = (
   field: SimpleResumeSection | ComplexResumeSection | undefined,
 ) => {
   if (!field) {
-    return ""
+    return null
   }
 
   if (isSimpleResumeSection(field)) {
     return ""
   }
 
-  return `${field.field3} - ${field.timeline?.from} - ${field.timeline?.to ?? "至今"}`
+  if (field.field3.length === 0 && !field.timeline) {
+    return null
+  }
+
+  return `${field.field3} - ${field.timeline?.from ?? ''} - ${field.timeline?.to ?? "至今"}`
 }
 
 const EmploymentHistoryCollapses: FC<{ resumeSectionsIndex: number }> = ({
