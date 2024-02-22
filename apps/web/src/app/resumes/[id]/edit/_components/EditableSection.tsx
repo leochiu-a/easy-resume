@@ -5,6 +5,7 @@ import {
   useFormContext,
   useWatch,
 } from "react-hook-form"
+import dayjs from "dayjs"
 import { Plus } from "lucide-react"
 
 import { Button } from "../../../../../components/ui/button"
@@ -59,7 +60,9 @@ const formatSubtitle = (
     return null
   }
 
-  return `${field.field3} - ${field.timeline?.from ?? ''} - ${field.timeline?.to ?? "至今"}`
+  const from = field.timeline?.from
+  const to = field.timeline?.to
+  return `${field.field3} - ${from ? dayjs(from).format("YYYY/MM/DD") : ""} - ${to ? dayjs(to).format("YYYY/MM/DD") : "至今"}`
 }
 
 const EmploymentHistoryCollapses: FC<{ resumeSectionsIndex: number }> = ({
