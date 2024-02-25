@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "skipLibCheck": true,
+    "allowJs": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "noImplicitAny": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@server/*": ["./apps/server/src/*"],
+      "@web/*": ["./apps/web/src/*"]
+    }
+  }
+}
