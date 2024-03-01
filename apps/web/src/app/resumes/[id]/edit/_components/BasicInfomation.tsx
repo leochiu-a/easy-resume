@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 
-import { Typography } from "../../../../../components/ui/typography"
+import { Typography } from "@/components/ui/typography"
 
 import { LabeledInputField } from "./LabeledInputField"
 import { UploadImage } from "./UploadImage"

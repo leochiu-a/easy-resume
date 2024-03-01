@@ -1,7 +1,7 @@
 import { forwardRef, useCallback, useState } from "react"
 
-import { MonthPicker } from "../../../../../components/ui/MonthPicker"
-import { Switch } from "../../../../../components/ui/switch"
+import { MonthPicker } from "@/components/ui/MonthPicker"
+import { Switch } from "@/components/ui/switch"
 
 interface LabeledDatePickerFieldProps {
   label: string

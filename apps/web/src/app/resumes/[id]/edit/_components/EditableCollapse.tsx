@@ -5,9 +5,9 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "../../../../../components/ui/collapsible"
-import { Tooltip } from "../../../../../components/ui/tooltip"
-import { Typography } from "../../../../../components/ui/typography"
+} from "@/components/ui/collapsible"
+import { Tooltip } from "@/components/ui/tooltip"
+import { Typography } from "@/components/ui/typography"
 
 interface EditableCollapseProps {
   title: string | null
@@ -22,7 +22,7 @@ const EditableCollapse: FC<PropsWithChildren<EditableCollapseProps>> = ({
   children,
 }) => {
   return (
-    <Collapsible className="group min-h-[6rem] cursor-pointer rounded-md border px-5 py-4 hover:border-primary">
+    <Collapsible className="hover:border-primary group min-h-[6rem] cursor-pointer rounded-md border px-5 py-4">
       <CollapsibleTrigger asChild>
         <div className="flex h-[4rem] w-full items-center justify-between">
           <div>

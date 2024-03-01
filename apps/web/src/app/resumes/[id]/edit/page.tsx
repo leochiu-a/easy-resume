@@ -9,8 +9,8 @@ import {
 } from "react-hook-form"
 import { Pencil } from "lucide-react"
 
-import { Textarea } from "../../../../components/ui/textarea"
-import { Typography } from "../../../../components/ui/typography"
+import { Textarea } from "@/components/ui/textarea"
+import { Typography } from "@/components/ui/typography"
 
 import { BasicInformation } from "./_components/BasicInfomation"
 import { EditableSection } from "./_components/EditableSection"
@@ -218,7 +218,7 @@ export default function EditResumePage() {
             </div>
           </div>
         </div>
-        <div className="sticky top-0 flex h-screen w-1/2 items-center justify-center overflow-auto bg-secondary">
+        <div className="bg-secondary sticky top-0 flex h-screen w-1/2 items-center justify-center overflow-auto">
           <ResumePreviewer />
         </div>
       </form>

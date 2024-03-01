@@ -8,8 +8,9 @@ import {
 import dayjs from "dayjs"
 import { Plus } from "lucide-react"
 
-import { Button } from "../../../../../components/ui/button"
-import { Typography } from "../../../../../components/ui/typography"
+import { Button } from "@/components/ui/button"
+import { Typography } from "@/components/ui/typography"
+
 import {
   ComplexResumeSection,
   Resume,

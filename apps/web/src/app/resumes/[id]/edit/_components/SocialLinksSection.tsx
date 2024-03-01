@@ -7,9 +7,10 @@ import {
 } from "react-hook-form"
 import { Plus } from "lucide-react"
 
-import { Button } from "../../../../../components/ui/button"
-import { Input } from "../../../../../components/ui/input"
-import { Typography } from "../../../../../components/ui/typography"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Typography } from "@/components/ui/typography"
+
 import { Resume } from "../page"
 
 import { EditableCollapse } from "./EditableCollapse"
