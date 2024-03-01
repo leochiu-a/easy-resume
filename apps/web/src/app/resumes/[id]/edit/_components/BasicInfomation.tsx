@@ -4,6 +4,7 @@ import { Controller, useFormContext } from "react-hook-form"
 import { Typography } from "../../../../../components/ui/typography"
 
 import { LabeledInputField } from "./LabeledInputField"
+import { UploadImage } from "./UploadImage"
 
 const BasicInformation: FC = () => {
   const { control } = useFormContext()
@@ -23,7 +24,14 @@ const BasicInformation: FC = () => {
             />
           )}
         />
-        <div>Avatar</div>
+        <Controller
+          name="avatar"
+          control={control}
+          render={({ field }) => (
+            <UploadImage onChange={field.onChange} value={field.value} />
+          )}
+        />
+
         <Controller
           name="username"
           control={control}

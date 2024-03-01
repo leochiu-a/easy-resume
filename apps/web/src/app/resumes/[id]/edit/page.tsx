@@ -77,7 +77,7 @@ const defaultResume: Resume = {
   resumeTitle: "My Resume",
   wantedJobTitle: "Senior Frontend Engineer",
   username: "Leo",
-  avatarUrl: "https://i.pravatar.cc/300",
+  avatarUrl: "https://github.com/shadcn.png",
   city: "Taipei",
   phone: "09123456789",
   email: "leo@mail.mail",
