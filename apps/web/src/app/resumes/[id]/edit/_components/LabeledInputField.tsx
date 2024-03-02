@@ -1,6 +1,6 @@
 import { forwardRef } from "react"
 
-import { Input, InputProps } from "../../../../../components/ui/input"
+import { Input, InputProps } from "@/components/ui/input"
 
 interface LabeledInputFieldProps extends InputProps {
   label: string

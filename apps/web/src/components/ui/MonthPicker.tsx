@@ -69,7 +69,7 @@ const MonthCalendar: FC<MonthCalendarProps> = ({
             >
               {format(firstDayCurrentYear, "yyyy")}
             </div>
-            <div className="flex items-center space-x-1 static">
+            <div className="static flex items-center space-x-1">
               <button
                 name="previous-year"
                 aria-label="Go to previous year"
@@ -81,7 +81,7 @@ const MonthCalendar: FC<MonthCalendarProps> = ({
                 type="button"
                 onClick={previousYear}
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="size-4" />
               </button>
               <button
                 name="next-year"
@@ -95,7 +95,7 @@ const MonthCalendar: FC<MonthCalendarProps> = ({
                 disabled={isFuture(add(firstDayCurrentYear, { years: 1 }))}
                 onClick={nextYear}
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="size-4" />
               </button>
             </div>
           </div>
@@ -171,7 +171,7 @@ const MonthPicker: FC<MonthPickerProps> = ({
             !date && "text-muted-foreground",
           )}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
+          <CalendarIcon className="mr-2 size-4" />
           {date ? format(date, "yyyy-MMM") : <span>{placeholder}</span>}
         </Button>
       </PopoverTrigger>

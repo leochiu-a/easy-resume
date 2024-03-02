@@ -1,9 +1,10 @@
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 
-import { Typography } from "../../../../../components/ui/typography"
+import { Typography } from "@/components/ui/typography"
 
 import { LabeledInputField } from "./LabeledInputField"
+import { UploadImage } from "./UploadImage"
 
 const BasicInformation: FC = () => {
   const { control } = useFormContext()
@@ -11,7 +12,7 @@ const BasicInformation: FC = () => {
   return (
     <>
       <Typography variant="h4">基本訊息</Typography>
-      <div className="grid grid-cols-2 gap-4 mt-4 mb-8">
+      <div className="mb-8 mt-4 grid grid-cols-2 gap-4">
         <Controller
           name="wantedJobTitle"
           control={control}
@@ -23,7 +24,14 @@ const BasicInformation: FC = () => {
             />
           )}
         />
-        <div>Avatar</div>
+        <Controller
+          name="avatar"
+          control={control}
+          render={({ field }) => (
+            <UploadImage onChange={field.onChange} value={field.value} />
+          )}
+        />
+
         <Controller
           name="username"
           control={control}

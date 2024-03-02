@@ -9,83 +9,28 @@ import {
 } from "react-hook-form"
 import { Pencil } from "lucide-react"
 
-import { Textarea } from "../../../../components/ui/textarea"
-import { Typography } from "../../../../components/ui/typography"
+import { Textarea } from "@/components/ui/textarea"
+import { Typography } from "@/components/ui/typography"
+import { FieldVariants, Resume, SectionType } from "@/types/resume"
 
 import { BasicInformation } from "./_components/BasicInfomation"
 import { EditableSection } from "./_components/EditableSection"
 import ResumePreviewer from "./_components/ResumePreviewer"
 import SocialLinksSection from "./_components/SocialLinksSection"
 
-interface SocialLink {
-  label: string
-  url: string
-}
-
-export enum SectionType {
-  EmploymentHistory = "EmploymentHistory",
-  Skills = "Skills",
-  Education = "Education",
-  Custom = "Custom",
-}
-
-enum FieldVariants {
-  ComplexFieldsSection = "ComplexFieldsSection",
-  SimpleFieldsSection = "SimpleFieldsSection",
-}
-
-interface Timeline {
-  from: string
-  to: string | null
-}
-
-export interface SimpleResumeSection {
-  field: string
-  timeline: Timeline | null
-  description: string
-}
-
-export interface ComplexResumeSection {
-  field1: string
-  field2: string
-  field3: string
-  timeline: Timeline | null
-  description: string
-}
-
-interface ResumeSection {
-  sectionType: SectionType
-  variant: FieldVariants
-  title: string
-  fields: (SimpleResumeSection | ComplexResumeSection)[]
-}
-
-export interface Resume {
-  resumeTitle: string
-  wantedJobTitle: string
-  username: string
-  avatarUrl: string
-  city: string
-  phone: string
-  email: string
-  intro: string
-  socialLinks: SocialLink[]
-  resumeSections: ResumeSection[]
-}
-
 const defaultResume: Resume = {
   resumeTitle: "My Resume",
   wantedJobTitle: "Senior Frontend Engineer",
   username: "Leo",
-  avatarUrl: "https://i.pravatar.cc/300",
+  avatarUrl: "https://github.com/shadcn.png",
   city: "Taipei",
   phone: "09123456789",
   email: "leo@mail.mail",
   intro:
     "我是一位熱愛學習與探索的人，喜歡挑戰自己並且樂於接受新的挑戰。我擁有堅強的自學能力和團隊合作精神，樂於與他人分享知識與經驗。在工作中，我注重細節，勇於承擔責任，並且樂於面對挑戰，不斷追求提升自己。我希望能夠在未來的工作中，發揮自己的潛力，並且與團隊一起努力，共同成長與進步。",
   socialLinks: [
-    { label: "GitHub", url: "https://github.com/leochiu-a" },
-    { label: "Medium", url: "https://medium.com/@airwaves" },
+    { label: "GitHub", url: "@leochiu-a" },
+    { label: "Medium", url: "@airwaves" },
   ],
   resumeSections: [
     {
@@ -98,7 +43,17 @@ const defaultResume: Resume = {
           field2: "Hahow",
           field3: "Taipei",
           timeline: { from: "2020/10/01", to: null },
-          description: "",
+          description: `
+            - 使用 Vue3 和 TypeScript 作為開發框架和語言。
+            <br/>
+            - 使用以及封裝 Echarts 完成複雜的數據展示。
+            <br/>
+            - 使用類 JSONForm 方案解決表單自動生成，相互依賴，以及實時更新的功能。
+            <br/>
+            - 支持多種複雜交互，拖動，縮放，快捷鍵，回滾，重做等功能。
+            <br/>
+            - 使用多種第三方庫實現高級功能 - cropper.js （圖片裁剪），html2canvas（截圖），qrcode.js （二維碼生成）等等。
+          `,
         },
       ],
     },
@@ -108,9 +63,31 @@ const defaultResume: Resume = {
       title: "專業技能",
       fields: [
         {
-          field: "JavaScript",
+          field: "React",
           timeline: { from: "2020/10/01", to: null },
-          description: "",
+          description: `
+            - 使用 Vue3 以及週邊工具：Vite、Vue-Router、Pinia 以及 Element-Plus 進行 Web 開發
+            <br/>
+            - 使用 React 以及週邊工具；Redux, React-Router, Mobx 進行 Web 開發
+          `,
+        },
+        {
+          field: "NestJS",
+          timeline: { from: "2020/10/01", to: null },
+          description: `
+            - 使用 Vue3 以及週邊工具：Vite、Vue-Router、Pinia 以及 Element-Plus 進行 Web 開發
+            <br/>
+            - 使用 React 以及週邊工具；Redux, React-Router, Mobx 進行 Web 開發
+          `,
+        },
+        {
+          field: "TypeScript",
+          timeline: { from: "2020/10/01", to: null },
+          description: `
+            - 使用 Vue3 以及週邊工具：Vite、Vue-Router、Pinia 以及 Element-Plus 進行 Web 開發
+            <br/>
+            - 使用 React 以及週邊工具；Redux, React-Router, Mobx 進行 Web 開發
+          `,
         },
       ],
     },
@@ -172,14 +149,14 @@ export default function EditResumePage() {
     <FormProvider {...formMethods}>
       <form className="flex" onSubmit={handleSubmit(onSubmit)}>
         <div className="w-1/2 p-12">
-          <div className="text-lg flex justify-center">
+          <div className="flex justify-center text-lg">
             <div className="group flex">
               <input
-                className="absolute w-full h-full"
+                className="absolute size-full"
                 {...register("resumeTitle")}
               />
               <div className="invisible">{resumeTitle}</div>
-              <Pencil className="opacity-0 group-hover:opacity-100 ml-2 transition duration-300" />
+              <Pencil className="ml-2 opacity-0 transition duration-300 group-hover:opacity-100" />
             </div>
           </div>
 
@@ -213,13 +190,15 @@ export default function EditResumePage() {
             )}
 
             <Typography variant="h4">個人簡介</Typography>
-            <div className="space-y-4 mt-4 mb-8">
+            <div className="mb-8 mt-4 space-y-4">
               <Textarea />
             </div>
           </div>
         </div>
-        <div className="w-1/2 bg-secondary h-screen flex justify-center items-center sticky top-0 overflow-auto">
-          <ResumePreviewer />
+        <div className="bg-secondary sticky top-0 h-screen w-1/2 overflow-auto">
+          <div className="m-8 overflow-hidden  rounded-lg">
+            <ResumePreviewer />
+          </div>
         </div>
       </form>
     </FormProvider>

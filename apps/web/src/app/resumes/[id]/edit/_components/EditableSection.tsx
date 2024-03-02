@@ -5,16 +5,17 @@ import {
   useFormContext,
   useWatch,
 } from "react-hook-form"
+import dayjs from "dayjs"
 import { Plus } from "lucide-react"
 
-import { Button } from "../../../../../components/ui/button"
-import { Typography } from "../../../../../components/ui/typography"
+import { Button } from "@/components/ui/button"
+import { Typography } from "@/components/ui/typography"
 import {
   ComplexResumeSection,
   Resume,
   SectionType,
   SimpleResumeSection,
-} from "../page"
+} from "@/types/resume"
 
 import { EditableCollapse } from "./EditableCollapse"
 import { LabeledDatePickerField } from "./LabeledDatePickerField"
@@ -30,11 +31,15 @@ const formatTitle = (
   field: SimpleResumeSection | ComplexResumeSection | undefined,
 ) => {
   if (!field) {
-    return ""
+    return null
   }
 
   if (isSimpleResumeSection(field)) {
     return field.field
+  }
+
+  if (field.field1.length === 0 && field.field2.length === 0) {
+    return null
   }
 
   return `${field.field1} - ${field.field2}`
@@ -44,19 +49,27 @@ const formatSubtitle = (
   field: SimpleResumeSection | ComplexResumeSection | undefined,
 ) => {
   if (!field) {
-    return ""
+    return null
   }
 
   if (isSimpleResumeSection(field)) {
     return ""
   }
 
-  return `${field.field3} - ${field.timeline?.from} - ${field.timeline?.to ?? "至今"}`
+  if (field.field3.length === 0 && !field.timeline) {
+    return null
+  }
+
+  const from = field.timeline?.from
+  const to = field.timeline?.to
+  return `${field.field3} - ${from ? dayjs(from).format("YYYY/MM/DD") : ""} - ${to ? dayjs(to).format("YYYY/MM/DD") : "至今"}`
 }
 
-const EmploymentHistoryCollapses: FC<{ resumeSectionsIndex: number }> = ({
-  resumeSectionsIndex,
-}) => {
+interface FormFieldsGroupProps {
+  resumeSectionsIndex: number
+}
+
+const FormFieldsGroup: FC<FormFieldsGroupProps> = ({ resumeSectionsIndex }) => {
   const { control } = useFormContext<Resume>()
   const { fields, remove, append } = useFieldArray({
     control,
@@ -77,28 +90,41 @@ const EmploymentHistoryCollapses: FC<{ resumeSectionsIndex: number }> = ({
             subtitle={formatSubtitle(resumeFields[index])}
             onRemove={() => remove(index)}
           >
-            <div className="grid grid-cols-2 mt-4 gap-4">
-              <Controller
-                control={control}
-                name={`resumeSections.${resumeSectionsIndex}.fields.${index}.field1`}
-                render={({ field }) => (
-                  <LabeledInputField label="職位" {...field} />
-                )}
-              />
-              <Controller
-                control={control}
-                name={`resumeSections.${resumeSectionsIndex}.fields.${index}.field2`}
-                render={({ field }) => (
-                  <LabeledInputField label="公司" {...field} />
-                )}
-              />
-              <Controller
-                control={control}
-                name={`resumeSections.${resumeSectionsIndex}.fields.${index}.field3`}
-                render={({ field }) => (
-                  <LabeledInputField label="城市" {...field} />
-                )}
-              />
+            <div className="mt-4 grid grid-cols-2 gap-4">
+              {isSimpleResumeSection(resumeFields[index]) ? (
+                <Controller
+                  control={control}
+                  name={`resumeSections.${resumeSectionsIndex}.fields.${index}.field`}
+                  render={({ field }) => (
+                    <LabeledInputField label="職位" {...field} />
+                  )}
+                />
+              ) : (
+                <>
+                  <Controller
+                    control={control}
+                    name={`resumeSections.${resumeSectionsIndex}.fields.${index}.field1`}
+                    render={({ field }) => (
+                      <LabeledInputField label="職位" {...field} />
+                    )}
+                  />
+                  <Controller
+                    control={control}
+                    name={`resumeSections.${resumeSectionsIndex}.fields.${index}.field2`}
+                    render={({ field }) => (
+                      <LabeledInputField label="公司" {...field} />
+                    )}
+                  />
+                  <Controller
+                    control={control}
+                    name={`resumeSections.${resumeSectionsIndex}.fields.${index}.field3`}
+                    render={({ field }) => (
+                      <LabeledInputField label="城市" {...field} />
+                    )}
+                  />
+                </>
+              )}
+
               <Controller
                 control={control}
                 name={`resumeSections.${resumeSectionsIndex}.fields.${index}.timeline`}
@@ -140,7 +166,7 @@ const EmploymentHistoryCollapses: FC<{ resumeSectionsIndex: number }> = ({
           })
         }
       >
-        <Plus className="mr-2 h-4 w-4" />
+        <Plus className="mr-2 size-4" />
         新增內容
       </Button>
     </>
@@ -178,8 +204,8 @@ const EditableSection: FC<EditableSectionProps> = ({
           {description}
         </Typography>
       )}
-      <div className="space-y-4 mt-4 mb-8">
-        <EmploymentHistoryCollapses resumeSectionsIndex={resumeSectionIndex} />
+      <div className="mb-8 mt-4 space-y-4">
+        <FormFieldsGroup resumeSectionsIndex={resumeSectionIndex} />
       </div>
     </>
   )
