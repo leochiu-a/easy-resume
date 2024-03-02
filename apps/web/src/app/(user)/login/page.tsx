@@ -13,7 +13,7 @@ import { Typography } from "@/components/ui/typography"
  */
 export default function Login() {
   return (
-    <div className="flex h-screen flex-col items-center justify-center gap-8">
+    <>
       <Typography variant="h2">登入你的帳號</Typography>
       <Card className="w-full max-w-[480px] pt-6">
         <CardContent className="grid gap-4">
@@ -65,6 +65,6 @@ export default function Login() {
           </div>
         </CardFooter>
       </Card>
-    </div>
+    </>
   )
 }

@@ -1,5 +1,8 @@
+"use client"
+
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useRouter } from "next/navigation"
 
 import { Avatar } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -14,6 +17,12 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 const UserDropdown = () => {
+  const router = useRouter()
+
+  const logout = () => {
+    router.push("/login")
+  }
+
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
@@ -40,7 +49,7 @@ const UserDropdown = () => {
           <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Log out</DropdownMenuItem>
+        <DropdownMenuItem onClick={logout}>Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
