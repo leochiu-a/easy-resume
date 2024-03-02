@@ -1,5 +1,11 @@
 import { FC, Fragment } from "react"
-import { Circle, MapPin, Phone, User } from "lucide-react"
+import { faCircle } from "@fortawesome/free-regular-svg-icons"
+import {
+  faLocationDot,
+  faMobileScreen,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 import {
   ComplexResumeSection,
@@ -20,7 +26,7 @@ const Section: FC<SectionProps> = ({ title, fields, text }) => {
   const timelineElement = (
     <div className="relative top-1.5">
       <div className="flex h-full flex-col items-center">
-        <Circle size={6} strokeWidth={4} />
+        <FontAwesomeIcon icon={faCircle} className="size-1.5" />
         <div className="h-full w-px bg-black"></div>
       </div>
     </div>
@@ -28,7 +34,7 @@ const Section: FC<SectionProps> = ({ title, fields, text }) => {
 
   return (
     <div className="grid grid-cols-[max-content_1fr] gap-x-4">
-      <User size={20} className="self-center" />
+      <FontAwesomeIcon icon={faUser} className="self-center" />
       <Typography variant="h4">{title}</Typography>
 
       {text ? (
@@ -106,11 +112,11 @@ const BasicTemplate: FC<BasicTemplateProps> = ({
         <div className="flex gap-4">
           <span>{wantedJobTitle}</span>
           <span className="flex items-center gap-1">
-            <MapPin size={20} />
+            <FontAwesomeIcon icon={faLocationDot} className="size-5" />
             {city}
           </span>
           <span className="flex items-center gap-1">
-            <Phone size={20} />
+            <FontAwesomeIcon icon={faMobileScreen} className="size-5" />
             {phone}
           </span>
         </div>
@@ -120,9 +126,9 @@ const BasicTemplate: FC<BasicTemplateProps> = ({
         <div className="flex-1">
           <div className="space-y-2 text-center">
             <div className="flex items-center justify-center gap-2">
-              <Circle size={6} strokeWidth={4} />
+              <FontAwesomeIcon icon={faCircle} className="size-1.5" />
               <span className="font-semibold">詳細資訊</span>
-              <Circle size={6} strokeWidth={4} />
+              <FontAwesomeIcon icon={faCircle} className="size-1.5" />
             </div>
             <div>
               <div>{city}</div>
@@ -132,9 +138,9 @@ const BasicTemplate: FC<BasicTemplateProps> = ({
           </div>
 
           <div className="mt-4 flex items-center justify-center gap-2">
-            <Circle size={6} strokeWidth={4} />
+            <FontAwesomeIcon icon={faCircle} className="size-1.5" />
             <span className="font-semibold">社群連結</span>
-            <Circle size={6} strokeWidth={4} />
+            <FontAwesomeIcon icon={faCircle} className="size-1.5" />
           </div>
           <div>
             {socialLinks.map((link, index) => (

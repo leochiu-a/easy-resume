@@ -1,5 +1,6 @@
 import { FC, PropsWithChildren } from "react"
-import { ChevronDown, Trash2 } from "lucide-react"
+import { faChevronDown, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 import {
   Collapsible,
@@ -42,7 +43,7 @@ const EditableCollapse: FC<PropsWithChildren<EditableCollapseProps>> = ({
             )}
           </div>
 
-          <ChevronDown />
+          <FontAwesomeIcon icon={faChevronDown} />
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent>{children}</CollapsibleContent>
@@ -52,7 +53,7 @@ const EditableCollapse: FC<PropsWithChildren<EditableCollapseProps>> = ({
           className="absolute -right-8 top-8 font-medium opacity-0 transition duration-100 group-hover:opacity-100"
           onClick={onRemove}
         >
-          <Trash2 size={20} />
+          <FontAwesomeIcon icon={faTrash} />
         </button>
       </Tooltip>
     </Collapsible>

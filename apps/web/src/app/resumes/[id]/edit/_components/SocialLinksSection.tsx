@@ -5,7 +5,8 @@ import {
   useFormContext,
   useWatch,
 } from "react-hook-form"
-import { Plus } from "lucide-react"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -53,7 +54,7 @@ const SocialLinksSection: FC = () => {
         ))}
 
         <Button variant="ghost" onClick={() => append({ label: "", url: "" })}>
-          <Plus className="mr-2 size-4" />
+          <FontAwesomeIcon icon={faPlus} className="mr-2 size-4" />
           新增內容
         </Button>
       </div>

@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, useState } from "react"
-import { User } from "lucide-react"
+import { faUser } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
@@ -44,7 +45,7 @@ const UploadImage: FC<UploadImageProps> = ({ onChange, value }) => {
             htmlFor="file"
           >
             <div className="flex size-[4rem] items-center justify-center bg-gray-100 text-gray-400 group-hover:bg-sky-50 group-hover:text-sky-600">
-              <User size={40} />
+              <FontAwesomeIcon icon={faUser} className="size-8"/>
             </div>
             <span className="group-hover:text-sky-600">上傳頭像</span>
           </label>

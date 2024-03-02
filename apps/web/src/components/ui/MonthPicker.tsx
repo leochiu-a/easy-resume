@@ -1,4 +1,10 @@
 import { FC, useEffect, useState } from "react"
+import { faCalendar } from "@fortawesome/free-regular-svg-icons"
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   add,
   eachMonthOfInterval,
@@ -10,20 +16,11 @@ import {
   startOfMonth,
   startOfToday,
 } from "date-fns"
-import {
-  Calendar as CalendarIcon,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react"
 
 import { cn } from "../../lib/utils"
 
 import { Button, buttonVariants } from "./button"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "./popover"
+import { Popover, PopoverContent, PopoverTrigger } from "./popover"
 
 function getStartOfCurrentMonth() {
   return startOfMonth(startOfToday())
@@ -81,7 +78,7 @@ const MonthCalendar: FC<MonthCalendarProps> = ({
                 type="button"
                 onClick={previousYear}
               >
-                <ChevronLeft className="size-4" />
+                <FontAwesomeIcon icon={faChevronLeft} className="size-4" />
               </button>
               <button
                 name="next-year"
@@ -95,7 +92,7 @@ const MonthCalendar: FC<MonthCalendarProps> = ({
                 disabled={isFuture(add(firstDayCurrentYear, { years: 1 }))}
                 onClick={nextYear}
               >
-                <ChevronRight className="size-4" />
+                <FontAwesomeIcon icon={faChevronRight} className="size-4" />
               </button>
             </div>
           </div>
@@ -171,7 +168,7 @@ const MonthPicker: FC<MonthPickerProps> = ({
             !date && "text-muted-foreground",
           )}
         >
-          <CalendarIcon className="mr-2 size-4" />
+          <FontAwesomeIcon icon={faCalendar} className="mr-2 size-4" />
           {date ? format(date, "yyyy-MMM") : <span>{placeholder}</span>}
         </Button>
       </PopoverTrigger>
