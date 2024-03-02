@@ -7,7 +7,8 @@ import {
   useForm,
   useWatch,
 } from "react-hook-form"
-import { Pencil } from "lucide-react"
+import { faPencil } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 import { Textarea } from "@/components/ui/textarea"
 import { Typography } from "@/components/ui/typography"
@@ -150,13 +151,16 @@ export default function EditResumePage() {
       <form className="flex" onSubmit={handleSubmit(onSubmit)}>
         <div className="w-1/2 p-12">
           <div className="flex justify-center text-lg">
-            <div className="group flex">
+            <div className="group flex items-center">
               <input
                 className="absolute size-full"
                 {...register("resumeTitle")}
               />
               <div className="invisible">{resumeTitle}</div>
-              <Pencil className="ml-2 opacity-0 transition duration-300 group-hover:opacity-100" />
+              <FontAwesomeIcon
+                icon={faPencil}
+                className="ml-2 size-4 opacity-0 transition duration-300 group-hover:opacity-100"
+              />
             </div>
           </div>
 

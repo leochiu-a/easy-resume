@@ -5,8 +5,9 @@ import {
   useFormContext,
   useWatch,
 } from "react-hook-form"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import dayjs from "dayjs"
-import { Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
@@ -166,7 +167,7 @@ const FormFieldsGroup: FC<FormFieldsGroupProps> = ({ resumeSectionsIndex }) => {
           })
         }
       >
-        <Plus className="mr-2 size-4" />
+        <FontAwesomeIcon icon={faPlus} className="mr-2 size-4" />
         新增內容
       </Button>
     </>
