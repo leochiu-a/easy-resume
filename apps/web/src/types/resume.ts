@@ -53,7 +53,7 @@ export interface ComplexResumeSection {
   description: string
 }
 
-interface ResumeSection {
+export interface ResumeSection {
   sectionType: SectionType
   variant: FieldVariants
   title: string
