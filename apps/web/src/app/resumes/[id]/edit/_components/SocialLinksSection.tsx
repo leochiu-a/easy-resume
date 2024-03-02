@@ -10,8 +10,7 @@ import { Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Typography } from "@/components/ui/typography"
-
-import { Resume } from "../page"
+import { Resume } from "@/types/resume"
 
 import { EditableCollapse } from "./EditableCollapse"
 

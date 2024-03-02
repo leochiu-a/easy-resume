@@ -10,13 +10,12 @@ import { Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
-
 import {
   ComplexResumeSection,
   Resume,
   SectionType,
   SimpleResumeSection,
-} from "../page"
+} from "@/types/resume"
 
 import { EditableCollapse } from "./EditableCollapse"
 import { LabeledDatePickerField } from "./LabeledDatePickerField"
@@ -70,9 +69,7 @@ interface FormFieldsGroupProps {
   resumeSectionsIndex: number
 }
 
-const FormFieldsGroup: FC<FormFieldsGroupProps> = ({
-  resumeSectionsIndex,
-}) => {
+const FormFieldsGroup: FC<FormFieldsGroupProps> = ({ resumeSectionsIndex }) => {
   const { control } = useFormContext<Resume>()
   const { fields, remove, append } = useFieldArray({
     control,

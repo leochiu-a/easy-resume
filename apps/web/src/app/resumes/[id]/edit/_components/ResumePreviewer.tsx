@@ -2,13 +2,7 @@ import React from "react"
 
 import { Typography } from "@/components/ui/typography"
 import { useFormValues } from "@/hooks/useFormValues"
-import { ComplexResumeSection, Resume, SimpleResumeSection } from "../page"
-
-const isSimpleResumeSection = (
-  field: SimpleResumeSection | ComplexResumeSection,
-): field is SimpleResumeSection => {
-  return "field" in field
-}
+import { Resume } from "@/types/resume"
 
 const ResumePreviewer = () => {
   const {

@@ -11,67 +11,12 @@ import { Pencil } from "lucide-react"
 
 import { Textarea } from "@/components/ui/textarea"
 import { Typography } from "@/components/ui/typography"
+import { FieldVariants, Resume, SectionType } from "@/types/resume"
 
 import { BasicInformation } from "./_components/BasicInfomation"
 import { EditableSection } from "./_components/EditableSection"
 import ResumePreviewer from "./_components/ResumePreviewer"
 import SocialLinksSection from "./_components/SocialLinksSection"
-
-interface SocialLink {
-  label: string
-  url: string
-}
-
-export enum SectionType {
-  EmploymentHistory = "EmploymentHistory",
-  Skills = "Skills",
-  Education = "Education",
-  Custom = "Custom",
-}
-
-export enum FieldVariants {
-  ComplexFieldsSection = "ComplexFieldsSection",
-  SimpleFieldsSection = "SimpleFieldsSection",
-}
-
-interface Timeline {
-  from: string
-  to: string | null
-}
-
-export interface SimpleResumeSection {
-  field: string
-  timeline: Timeline | null
-  description: string
-}
-
-export interface ComplexResumeSection {
-  field1: string
-  field2: string
-  field3: string
-  timeline: Timeline | null
-  description: string
-}
-
-interface ResumeSection {
-  sectionType: SectionType
-  variant: FieldVariants
-  title: string
-  fields: (SimpleResumeSection | ComplexResumeSection)[]
-}
-
-export interface Resume {
-  resumeTitle: string
-  wantedJobTitle: string
-  username: string
-  avatarUrl: string
-  city: string
-  phone: string
-  email: string
-  intro: string
-  socialLinks: SocialLink[]
-  resumeSections: ResumeSection[]
-}
 
 const defaultResume: Resume = {
   resumeTitle: "My Resume",
