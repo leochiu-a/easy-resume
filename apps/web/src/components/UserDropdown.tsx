@@ -19,7 +19,7 @@ const UserDropdown = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative size-8 rounded-full">
           <Avatar className="grid size-9 place-items-center bg-slate-200">
-            <FontAwesomeIcon icon={faUser} className="text-slate-400" />
+            <FontAwesomeIcon icon={faUser} className="size-4 text-slate-400" />
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
