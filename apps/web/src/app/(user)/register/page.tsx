@@ -11,8 +11,8 @@ import { Typography } from "@/components/ui/typography"
  */
 export default function Register() {
   return (
-    <div className="flex h-screen flex-col items-center justify-center gap-8">
-      <Typography variant="h1">註冊帳號</Typography>
+    <>
+      <Typography variant="h2">註冊帳號</Typography>
       <Card className="w-full max-w-[480px] pt-6">
         <CardContent className="grid gap-4">
           <div className="grid gap-2">
@@ -41,6 +41,6 @@ export default function Register() {
           </div>
         </CardFooter>
       </Card>
-    </div>
+    </>
   )
 }

@@ -16,6 +16,7 @@ module.exports = {
   rules: {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+    "tailwindcss/no-custom-classname": "off",
   },
   overrides: [
     {

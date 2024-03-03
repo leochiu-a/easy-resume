@@ -199,8 +199,8 @@ export default function EditResumePage() {
             </div>
           </div>
         </div>
-        <div className="bg-secondary sticky top-0 h-screen w-1/2 overflow-auto">
-          <div className="m-8 overflow-hidden  rounded-lg">
+        <div className="sticky top-0 h-screen w-1/2 overflow-auto bg-slate-200">
+          <div className="m-8 overflow-hidden rounded-lg">
             <ResumePreviewer />
           </div>
         </div>
