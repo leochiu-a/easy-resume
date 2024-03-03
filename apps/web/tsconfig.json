@@ -13,7 +13,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "noEmit": true
   },
   "include": [
     "apps/web/src/next-env.d.ts",
