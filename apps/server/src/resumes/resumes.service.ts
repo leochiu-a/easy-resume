@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateResumeDto } from './dto/update-resume.dto';
 import { PrismaService } from '@server/prisma/prisma.service';
 
@@ -16,8 +16,12 @@ export class ResumesService {
     return this.prisma.resume.findMany();
   }
 
-  findOne(id: string) {
-    return this.prisma.resume.findUnique({ where: { id } });
+  async findOne(id: string) {
+    const resume = await this.prisma.resume.findUnique({ where: { id } });
+    if (!resume) {
+      throw new NotFoundException(`Resume with ${id} doesn't exist`);
+    }
+    return resume;
   }
 
   update(id: string, updateResumeDto: UpdateResumeDto) {
