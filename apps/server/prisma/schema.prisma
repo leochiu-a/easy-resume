@@ -16,10 +16,10 @@ datasource db {
 model Resume {
   id          String  @id @default(uuid())
   resumeTitle String? @default("我的履歷")
-  wantedJob   String
-  avatarUrl   String
-  city        String
-  phone       String
-  email       String
-  intro       String
+  wantedJob   String? @default("")
+  avatarUrl   String? @default("")
+  city        String? @default("")
+  phone       String? @default("")
+  email       String? @default("")
+  intro       String? @default("")
 }
