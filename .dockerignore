@@ -1,0 +1,12 @@
+.gitignore
+.env
+.github
+.husky
+
+**/node_modules
+**/dist
+**.md
+
+.prettierignore
+.prettierrc
+commitlint.config.js
