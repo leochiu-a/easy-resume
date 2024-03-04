@@ -5,6 +5,16 @@ import { v4 as uuid } from 'uuid';
 const prisma = new PrismaClient();
 
 async function main() {
+  const user = await prisma.user.upsert({
+    where: { id: uuid() },
+    update: {},
+    create: {
+      name: 'Leo',
+      email: 'leo@gmail.com',
+      password: 'password1234',
+    },
+  });
+
   await prisma.resume.upsert({
     where: { id: uuid() },
     update: {},
@@ -16,6 +26,7 @@ async function main() {
       email: 'leo@gmail.com',
       intro:
         '我是一位熱愛學習與探索的人，喜歡挑戰自己並且樂於接受新的挑戰。我擁有堅強的自學能力和團隊合作精神，樂於與他人分享知識與經驗。在工作中，我注重細節，勇於承擔責任，並且樂於面對挑戰，不斷追求提升自己。我希望能夠在未來的工作中，發揮自己的潛力，並且與團隊一起努力，共同成長與進步。',
+      userId: user.id,
     },
   });
 }

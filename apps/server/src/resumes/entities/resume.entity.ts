@@ -1,28 +1,43 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Resume } from '@prisma/client';
+import { UserEntity } from '@server/users/entities/user.entity';
 
 export class ResumeEntity implements Resume {
   @ApiProperty()
   id: string;
 
   @ApiProperty()
-  resumeTitle: string;
+  resumeTitle: string | null;
 
   @ApiProperty()
-  wantedJob: string;
+  wantedJob: string | null;
 
   @ApiProperty()
-  avatarUrl: string;
+  avatarUrl: string | null;
 
   @ApiProperty()
-  city: string;
+  city: string | null;
 
   @ApiProperty()
-  phone: string;
+  phone: string | null;
 
   @ApiProperty()
-  email: string;
+  email: string | null;
 
   @ApiProperty()
-  intro: string;
+  intro: string | null;
+
+  @ApiProperty()
+  userId: string;
+
+  @ApiProperty({ type: UserEntity })
+  user: UserEntity;
+
+  constructor({ user, ...partial }: Partial<ResumeEntity>) {
+    Object.assign(this, partial);
+
+    if (user) {
+      this.user = new UserEntity(user);
+    }
+  }
 }

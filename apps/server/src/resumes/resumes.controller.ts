@@ -7,43 +7,51 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ResumesService } from './resumes.service';
 import { UpdateResumeDto } from './dto/update-resume.dto';
 import { ResumeEntity } from './entities/resume.entity';
+import { CreateResumeDto } from './dto/create-resume.dto';
 
 @Controller('resumes')
 @ApiTags('resumes')
 export class ResumesController {
   constructor(private readonly resumesService: ResumesService) {}
 
-  @ApiResponse({ type: ResumeEntity })
   @Post()
-  create() {
-    return this.resumesService.create();
+  @ApiCreatedResponse({ type: ResumeEntity })
+  async create(@Body() createResumeDto: CreateResumeDto) {
+    const newResume = await this.resumesService.create(createResumeDto);
+    return new ResumeEntity(newResume);
   }
 
-  @ApiResponse({ type: ResumeEntity, isArray: true })
   @Get()
-  findAll() {
-    return this.resumesService.findAll();
+  @ApiOkResponse({ type: ResumeEntity, isArray: true })
+  async findAll() {
+    const resumes = await this.resumesService.findAll();
+    return resumes.map((resume) => new ResumeEntity(resume));
   }
 
-  @ApiResponse({ type: ResumeEntity })
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.resumesService.findOne(id);
+  @ApiOkResponse({ type: ResumeEntity })
+  async findOne(@Param('id') id: string) {
+    return new ResumeEntity(await this.resumesService.findOne(id));
   }
 
-  @ApiResponse({ type: ResumeEntity })
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateResumeDto: UpdateResumeDto) {
-    return this.resumesService.update(id, updateResumeDto);
+  @ApiCreatedResponse({ type: ResumeEntity })
+  async update(
+    @Param('id') id: string,
+    @Body() updateResumeDto: UpdateResumeDto,
+  ) {
+    return new ResumeEntity(
+      await this.resumesService.update(id, updateResumeDto),
+    );
   }
 
-  @ApiResponse({ type: ResumeEntity })
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.resumesService.remove(id);
+  @ApiOkResponse({ type: ResumeEntity })
+  async remove(@Param('id') id: string) {
+    return new ResumeEntity(await this.resumesService.remove(id));
   }
 }

@@ -1,15 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateResumeDto } from './dto/update-resume.dto';
 import { PrismaService } from '@server/prisma/prisma.service';
+import { CreateResumeDto } from './dto/create-resume.dto';
 
 @Injectable()
 export class ResumesService {
   constructor(private prisma: PrismaService) {}
 
-  create() {
-    return this.prisma.resume.create({
-      data: {},
-    });
+  create(createResumeDto: CreateResumeDto) {
+    return this.prisma.resume.create({ data: createResumeDto });
   }
 
   findAll() {
@@ -17,7 +16,12 @@ export class ResumesService {
   }
 
   async findOne(id: string) {
-    const resume = await this.prisma.resume.findUnique({ where: { id } });
+    const resume = await this.prisma.resume.findUnique({
+      where: { id },
+      include: {
+        user: true,
+      },
+    });
     if (!resume) {
       throw new NotFoundException(`Resume with ${id} doesn't exist`);
     }
