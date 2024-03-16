@@ -17,7 +17,7 @@ import {
   startOfToday,
 } from "date-fns"
 
-import { cn } from "../../lib/utils"
+import { cn } from "../../lib/utils/tailwindUtils"
 
 import { Button, buttonVariants } from "./button"
 import { Popover, PopoverContent, PopoverTrigger } from "./popover"
