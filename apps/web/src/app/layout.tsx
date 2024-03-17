@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 
+import { Toaster } from "@/components/ui/toaster"
+
 import { cn } from "../lib/utils/tailwindUtils"
 
 import "./reset.css"
@@ -25,11 +27,13 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "bg-background min-h-screen font-sans antialiased",
           inter.className,
         )}
       >
         {children}
+
+        <Toaster />
       </body>
     </html>
   )
