@@ -6,12 +6,19 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ResumesService } from './resumes.service';
 import { UpdateResumeDto } from './dto/update-resume.dto';
 import { ResumeEntity } from './entities/resume.entity';
 import { CreateResumeDto } from './dto/create-resume.dto';
+import { JwtAuthGuard } from '@server/auth/jwt-auth.guard';
 
 @Controller('resumes')
 @ApiTags('resumes')
@@ -26,6 +33,8 @@ export class ResumesController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: ResumeEntity, isArray: true })
   async findAll() {
     const resumes = await this.resumesService.findAll();
@@ -33,12 +42,16 @@ export class ResumesController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: ResumeEntity })
   async findOne(@Param('id') id: string) {
     return new ResumeEntity(await this.resumesService.findOne(id));
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ type: ResumeEntity })
   async update(
     @Param('id') id: string,
@@ -50,6 +63,8 @@ export class ResumesController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: ResumeEntity })
   async remove(@Param('id') id: string) {
     return new ResumeEntity(await this.resumesService.remove(id));
