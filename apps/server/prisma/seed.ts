@@ -1,17 +1,20 @@
 import { PrismaClient } from '@prisma/client';
 import { v4 as uuid } from 'uuid';
+import * as bcrypt from 'bcrypt';
 
 // initialize Prisma Client
 const prisma = new PrismaClient();
 
+const roundsOfHashing = 10;
+
 async function main() {
   const user = await prisma.user.upsert({
-    where: { id: uuid() },
+    where: { email: 'leo@gmail.com' },
     update: {},
     create: {
       name: 'Leo',
       email: 'leo@gmail.com',
-      password: 'password1234',
+      password: await bcrypt.hash('password1234', roundsOfHashing),
     },
   });
 

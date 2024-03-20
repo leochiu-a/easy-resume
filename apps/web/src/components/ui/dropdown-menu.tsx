@@ -9,7 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/tailwindUtils"
 
 const DropdownMenu = DropdownMenuPrimitive.Root
 

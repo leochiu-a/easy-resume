@@ -7,6 +7,8 @@ import { PrismaClientExceptionsFilter } from './common/filters/prisma-client-exc
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors();
+
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
@@ -18,6 +20,7 @@ async function bootstrap() {
     .setDescription('The resume API description')
     .setVersion('1.0')
     .addTag('resume')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
