@@ -33,6 +33,12 @@ export class ResumeEntity implements Resume {
   @ApiProperty({ type: UserEntity })
   user: UserEntity;
 
+  @ApiProperty()
+  createdAt: Date;
+
+  @ApiProperty()
+  updatedAt: Date;
+
   constructor({ user, ...partial }: Partial<ResumeEntity>) {
     Object.assign(this, partial);
 
