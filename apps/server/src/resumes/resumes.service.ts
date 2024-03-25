@@ -20,6 +20,16 @@ export class ResumesService {
       where: { id },
       include: {
         user: true,
+        socialLinks: true,
+        groups: {
+          include: {
+            fields: {
+              include: {
+                timeline: true,
+              },
+            },
+          },
+        },
       },
     });
     if (!resume) {

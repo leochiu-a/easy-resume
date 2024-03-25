@@ -13,21 +13,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Resume {
-  id          String   @id @default(uuid())
-  resumeTitle String?  @default("我的履歷")
-  wantedJob   String?  @default("")
-  avatarUrl   String?  @default("")
-  city        String?  @default("")
-  phone       String?  @default("")
-  email       String?  @default("")
-  intro       String?  @default("")
-  user        User     @relation(fields: [userId], references: [id])
-  userId      String
-  createdAt   DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt   DateTime @updatedAt @db.Timestamptz(6)
-}
-
 model User {
   id       String   @id @default(uuid())
   name     String?
@@ -36,4 +21,71 @@ model User {
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
   Resume   Resume[]
+}
+
+model Resume {
+  id          String        @id @default(uuid())
+  resumeTitle String?       @default("我的履歷")
+  username    String?       @default("")
+  wantedJob   String?       @default("")
+  avatarUrl   String?       @default("")
+  city        String?       @default("")
+  phone       String?       @default("")
+  email       String?       @default("")
+  intro       String?       @default("")
+  user        User          @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime      @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime      @updatedAt @db.Timestamptz(6)
+  socialLinks SocialLink[]
+  groups      ResumeGroup[]
+}
+
+model SocialLink {
+  id       String @id @default(uuid())
+  name     String
+  url      String
+  resume   Resume @relation(fields: [resumeId], references: [id])
+  resumeId String
+}
+
+model ResumeGroup {
+  id       String       @id @default(uuid())
+  type     GroupType
+  title    String
+  fields   GroupField[]
+  resume   Resume?      @relation(fields: [resumeId], references: [id])
+  resumeId String?
+  layout   GroupLayout
+}
+
+enum GroupType {
+  EmploymentHistory
+  Skills
+  Education
+  Custom
+}
+
+model GroupField {
+  id            String       @id @default(uuid())
+  field1        String?      @default("")
+  field2        String?      @default("")
+  field3        String?      @default("")
+  timeline      Timeline?
+  ResumeGroup   ResumeGroup? @relation(fields: [resumeGroupId], references: [id])
+  resumeGroupId String?
+  description   String?      @default("")
+}
+
+enum GroupLayout {
+  Simple
+  Complex
+}
+
+model Timeline {
+  id           String     @id @default(uuid())
+  from         DateTime?
+  to           DateTime?
+  groupField   GroupField @relation(fields: [groupFieldId], references: [id])
+  groupFieldId String     @unique
 }
