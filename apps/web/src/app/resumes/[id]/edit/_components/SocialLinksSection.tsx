@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Typography } from "@/components/ui/typography"
-import { Resume } from "@/types/resume"
+import { Resume } from "@/types/api/resumes"
 
 import { EditableCollapse } from "./EditableCollapse"
 
@@ -34,14 +34,14 @@ const SocialLinksSection: FC = () => {
         {fields.map((field, index) => (
           <EditableCollapse
             key={field.id}
-            title={socialLinks?.[index]?.label}
+            title={socialLinks?.[index]?.name}
             subtitle={socialLinks?.[index]?.url}
             onRemove={() => remove(index)}
           >
             <div className="mt-4 flex gap-4">
               <Controller
                 control={control}
-                name={`socialLinks.${index}.label`}
+                name={`socialLinks.${index}.name`}
                 render={({ field }) => <Input placeholder="名稱" {...field} />}
               />
               <Controller
@@ -53,7 +53,7 @@ const SocialLinksSection: FC = () => {
           </EditableCollapse>
         ))}
 
-        <Button variant="ghost" onClick={() => append({ label: "", url: "" })}>
+        <Button variant="ghost" onClick={() => append({ name: "", url: "" })}>
           <FontAwesomeIcon icon={faPlus} className="mr-2 size-4" />
           新增內容
         </Button>

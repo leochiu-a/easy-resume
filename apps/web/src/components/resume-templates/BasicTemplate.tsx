@@ -7,22 +7,21 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-import {
-  ComplexResumeSection,
-  Resume,
-  SimpleResumeSection,
-} from "@/types/resume"
+import { Field, GroupLayout, Resume } from "@/types/api/resumes"
 
 import { Avatar, AvatarImage } from "../ui/avatar"
 import { Typography } from "../ui/typography"
 
+const { Simple } = GroupLayout
+
 interface SectionProps {
   title: string
-  fields?: (SimpleResumeSection | ComplexResumeSection)[]
+  fields?: Field[]
   text?: string
+  layout?: GroupLayout
 }
 
-const Section: FC<SectionProps> = ({ title, fields, text }) => {
+const Section: FC<SectionProps> = ({ title, fields, text, layout }) => {
   const timelineElement = (
     <div className="relative top-1.5">
       <div className="flex h-full flex-col items-center">
@@ -47,9 +46,9 @@ const Section: FC<SectionProps> = ({ title, fields, text }) => {
           <Fragment key={index}>
             {timelineElement}
             <div>
-              {"field" in field ? (
+              {layout === Simple ? (
                 <div>
-                  <div className="font-semibold">{field.field}</div>
+                  <div className="font-semibold">{field.field1}</div>
                   <div className="flex gap-1 text-gray-500">
                     <div>{field.timeline?.from}</div>
                     <span>-</span>
@@ -88,17 +87,28 @@ const Section: FC<SectionProps> = ({ title, fields, text }) => {
   )
 }
 
-type BasicTemplateProps = Resume
+type BasicTemplateProps = Pick<
+  Resume,
+  | "wantedJob"
+  | "username"
+  | "avatarUrl"
+  | "city"
+  | "phone"
+  | "email"
+  | "socialLinks"
+  | "groups"
+  | "intro"
+>
 
 const BasicTemplate: FC<BasicTemplateProps> = ({
-  wantedJobTitle,
+  wantedJob,
   username,
   avatarUrl,
   city,
   phone,
   email,
   socialLinks,
-  resumeSections,
+  groups,
   intro,
 }) => {
   return (
@@ -110,7 +120,7 @@ const BasicTemplate: FC<BasicTemplateProps> = ({
         <Typography variant="h2">{username}</Typography>
 
         <div className="flex gap-4">
-          <span>{wantedJobTitle}</span>
+          <span>{wantedJob}</span>
           <span className="flex items-center gap-1">
             <FontAwesomeIcon icon={faLocationDot} className="size-5" />
             {city}
@@ -145,7 +155,7 @@ const BasicTemplate: FC<BasicTemplateProps> = ({
           <div>
             {socialLinks.map((link, index) => (
               <div key={index}>
-                <div>{link.label}</div>
+                <div>{link.name}</div>
                 <div>{link.url}</div>
               </div>
             ))}
@@ -155,7 +165,7 @@ const BasicTemplate: FC<BasicTemplateProps> = ({
         <div className="flex-[3] space-y-6">
           <Section title="自我介紹" text={intro} />
 
-          {resumeSections.map((section, index) => (
+          {groups.map((section, index) => (
             <Section {...section} key={index} />
           ))}
         </div>

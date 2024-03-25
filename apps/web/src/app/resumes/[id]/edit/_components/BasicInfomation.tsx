@@ -14,7 +14,7 @@ const BasicInformation: FC = () => {
       <Typography variant="h4">基本訊息</Typography>
       <div className="mb-8 mt-4 grid grid-cols-2 gap-4">
         <Controller
-          name="wantedJobTitle"
+          name="wantedJob"
           control={control}
           render={({ field }) => (
             <LabeledInputField

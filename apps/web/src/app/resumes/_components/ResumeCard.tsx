@@ -21,7 +21,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Resume } from "@/lib/api/resumes"
+import { Resume } from "@/types/api/resumes"
 
 import { useDeleteResume } from "../_hooks/useDeleteResume"
 

@@ -1,3 +1,5 @@
+"use client"
+
 import { FC } from "react"
 import {
   Controller,
@@ -10,33 +12,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import dayjs from "dayjs"
 
 import { Button } from "@/components/ui/button"
+import { Textarea } from "@/components/ui/textarea"
 import { Typography } from "@/components/ui/typography"
-import {
-  ComplexResumeSection,
-  Resume,
-  SectionType,
-  SimpleResumeSection,
-} from "@/types/resume"
+import { Field, GroupLayout, GroupType, Resume } from "@/types/api/resumes"
 
 import { EditableCollapse } from "./EditableCollapse"
 import { LabeledDatePickerField } from "./LabeledDatePickerField"
 import { LabeledInputField } from "./LabeledInputField"
 
-const isSimpleResumeSection = (
-  field: SimpleResumeSection | ComplexResumeSection,
-): field is SimpleResumeSection => {
-  return "field" in field
-}
+const { Simple } = GroupLayout
 
-const formatTitle = (
-  field: SimpleResumeSection | ComplexResumeSection | undefined,
-) => {
+const formatTitle = (field: Field | undefined, type: GroupLayout) => {
   if (!field) {
     return null
   }
 
-  if (isSimpleResumeSection(field)) {
-    return field.field
+  if (type === Simple) {
+    return field.field1
   }
 
   if (field.field1.length === 0 && field.field2.length === 0) {
@@ -46,14 +38,12 @@ const formatTitle = (
   return `${field.field1} - ${field.field2}`
 }
 
-const formatSubtitle = (
-  field: SimpleResumeSection | ComplexResumeSection | undefined,
-) => {
+const formatSubtitle = (field: Field | undefined, type: GroupLayout) => {
   if (!field) {
     return null
   }
 
-  if (isSimpleResumeSection(field)) {
+  if (type === Simple) {
     return ""
   }
 
@@ -67,18 +57,22 @@ const formatSubtitle = (
 }
 
 interface FormFieldsGroupProps {
-  resumeSectionsIndex: number
+  groupIndex: number
 }
 
-const FormFieldsGroup: FC<FormFieldsGroupProps> = ({ resumeSectionsIndex }) => {
+const FormFieldsGroup: FC<FormFieldsGroupProps> = ({ groupIndex }) => {
   const { control } = useFormContext<Resume>()
   const { fields, remove, append } = useFieldArray({
     control,
-    name: `resumeSections.${resumeSectionsIndex}.fields`,
+    name: `groups.${groupIndex}.fields`,
+  })
+  const groupLayout = useWatch({
+    control,
+    name: `groups.${groupIndex}.layout`,
   })
   const resumeFields = useWatch({
     control,
-    name: `resumeSections.${resumeSectionsIndex}.fields`,
+    name: `groups.${groupIndex}.fields`,
   })
 
   return (
@@ -87,15 +81,15 @@ const FormFieldsGroup: FC<FormFieldsGroupProps> = ({ resumeSectionsIndex }) => {
         {fields.map((field, index) => (
           <EditableCollapse
             key={field.id}
-            title={formatTitle(resumeFields[index])}
-            subtitle={formatSubtitle(resumeFields[index])}
+            title={formatTitle(resumeFields[index], groupLayout)}
+            subtitle={formatSubtitle(resumeFields[index], groupLayout)}
             onRemove={() => remove(index)}
           >
             <div className="mt-4 grid grid-cols-2 gap-4">
-              {isSimpleResumeSection(resumeFields[index]) ? (
+              {groupLayout === Simple ? (
                 <Controller
                   control={control}
-                  name={`resumeSections.${resumeSectionsIndex}.fields.${index}.field`}
+                  name={`groups.${groupIndex}.fields.${index}.field1`}
                   render={({ field }) => (
                     <LabeledInputField label="職位" {...field} />
                   )}
@@ -104,21 +98,21 @@ const FormFieldsGroup: FC<FormFieldsGroupProps> = ({ resumeSectionsIndex }) => {
                 <>
                   <Controller
                     control={control}
-                    name={`resumeSections.${resumeSectionsIndex}.fields.${index}.field1`}
+                    name={`groups.${groupIndex}.fields.${index}.field1`}
                     render={({ field }) => (
                       <LabeledInputField label="職位" {...field} />
                     )}
                   />
                   <Controller
                     control={control}
-                    name={`resumeSections.${resumeSectionsIndex}.fields.${index}.field2`}
+                    name={`groups.${groupIndex}.fields.${index}.field2`}
                     render={({ field }) => (
                       <LabeledInputField label="公司" {...field} />
                     )}
                   />
                   <Controller
                     control={control}
-                    name={`resumeSections.${resumeSectionsIndex}.fields.${index}.field3`}
+                    name={`groups.${groupIndex}.fields.${index}.field3`}
                     render={({ field }) => (
                       <LabeledInputField label="城市" {...field} />
                     )}
@@ -128,27 +122,27 @@ const FormFieldsGroup: FC<FormFieldsGroupProps> = ({ resumeSectionsIndex }) => {
 
               <Controller
                 control={control}
-                name={`resumeSections.${resumeSectionsIndex}.fields.${index}.timeline`}
-                render={({ field }) => {
-                  console.log(field)
-                  return (
-                    <LabeledDatePickerField
-                      label="開始&結束時間"
-                      switchText="在職"
-                      onChange={field.onChange}
-                      value={field.value}
-                    />
-                  )
-                }}
+                name={`groups.${groupIndex}.fields.${index}.timeline`}
+                render={({ field }) => (
+                  <LabeledDatePickerField
+                    label="開始&結束時間"
+                    switchText="在職"
+                    onChange={field.onChange}
+                    value={field.value}
+                  />
+                )}
               />
             </div>
 
             <div className="mt-4">
               <Controller
                 control={control}
-                name={`resumeSections.${resumeSectionsIndex}.fields.${index}.description`}
+                name={`groups.${groupIndex}.fields.${index}.description`}
                 render={({ field }) => (
-                  <LabeledInputField label="描述" {...field} />
+                  <div className="space-y-2">
+                    <div>描述</div>
+                    <Textarea {...field} />
+                  </div>
                 )}
               />
             </div>
@@ -162,7 +156,7 @@ const FormFieldsGroup: FC<FormFieldsGroupProps> = ({ resumeSectionsIndex }) => {
             field1: "",
             field2: "",
             field3: "",
-            timeline: null,
+            timeline: { from: null, to: null },
             description: "",
           })
         }
@@ -176,25 +170,25 @@ const FormFieldsGroup: FC<FormFieldsGroupProps> = ({ resumeSectionsIndex }) => {
 
 interface EditableSectionProps {
   description?: string
-  sectionType?: SectionType
+  groupType?: GroupType
   index?: number
 }
 
 const EditableSection: FC<EditableSectionProps> = ({
   description,
-  sectionType,
+  groupType,
   index,
 }) => {
   const { control } = useFormContext<Resume>()
-  const { fields } = useFieldArray({ control, name: "resumeSections" })
+  const { fields } = useFieldArray({ control, name: "groups" })
 
-  const resumeSectionIndex = index
+  const groupIndex = index
     ? index
-    : fields.findIndex((field) => field.sectionType === sectionType)
+    : fields.findIndex((field) => field.type === groupType)
 
   const title = useWatch({
     control,
-    name: `resumeSections.${resumeSectionIndex}.title`,
+    name: `groups.${groupIndex}.title`,
   })
 
   return (
@@ -206,7 +200,7 @@ const EditableSection: FC<EditableSectionProps> = ({
         </Typography>
       )}
       <div className="mb-8 mt-4 space-y-4">
-        <FormFieldsGroup resumeSectionsIndex={resumeSectionIndex} />
+        <FormFieldsGroup groupIndex={groupIndex} />
       </div>
     </>
   )

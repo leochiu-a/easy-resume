@@ -42,7 +42,7 @@ const LabeledDatePickerField = forwardRef<
     },
     [onChange, value?.from],
   )
-
+  console.log(value?.from)
   return (
     <div className="space-y-2">
       <div className="flex justify-between">

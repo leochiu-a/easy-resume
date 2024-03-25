@@ -1,5 +1,8 @@
 import axios from "axios"
 import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
+
+import { Resume } from "@/types/api/resumes"
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"
 
@@ -19,23 +22,25 @@ axiosApiInstance.interceptors.request.use(async (config) => {
   return config
 })
 
-export interface Resume {
-  id: string
-  resumeTitle: string
-  wantedJob: string
-  avatarUrl: string
-  city: string
-  phone: string
-  email: string
-  intro: string
-  userId: string
-  createAt: string
-  updatedAt: string
-}
+axiosApiInstance.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  async (error) => {
+    if (error.response?.status === 401) {
+      redirect("/api/delete-access-token")
+    }
+
+    return Promise.reject(error)
+  },
+)
 
 const ResumesAPI = {
   getResumes: async () => {
     return axiosApiInstance.get<Resume[]>(`${BASE_URL}/resumes`)
+  },
+  getResume: async (id: string) => {
+    return axiosApiInstance.get<Resume>(`${BASE_URL}/resumes/${id}`)
   },
 }
 
