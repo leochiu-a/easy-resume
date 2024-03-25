@@ -29,6 +29,8 @@ axiosApiInstance.interceptors.response.use(
   async (error) => {
     if (error.response?.status === 401) {
       redirect("/api/delete-access-token")
+    } else if (error.response?.status === 404) {
+      redirect("/not-found")
     }
 
     return Promise.reject(error)
