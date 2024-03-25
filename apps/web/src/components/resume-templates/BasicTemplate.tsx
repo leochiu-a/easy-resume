@@ -6,6 +6,7 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import dayjs from "dayjs"
 
 import { Field, GroupLayout, Resume } from "@/types/api/resumes"
 
@@ -19,6 +20,24 @@ interface SectionProps {
   fields?: Field[]
   text?: string
   layout?: GroupLayout
+}
+
+const DateRange = ({
+  from,
+  to,
+}: {
+  from: string | null
+  to: string | null
+}) => {
+  if (!from && !to) return null
+
+  return (
+    <div className="flex gap-1 text-gray-500">
+      <span>{from ? dayjs(from).format("YYYY-MM-DD") : ""}</span>
+      <span>-</span>
+      <span>{to ? dayjs(to).format("YYYY-MM-DD") : "至今"}</span>
+    </div>
+  )
 }
 
 const Section: FC<SectionProps> = ({ title, fields, text, layout }) => {
@@ -49,35 +68,33 @@ const Section: FC<SectionProps> = ({ title, fields, text, layout }) => {
               {layout === Simple ? (
                 <div>
                   <div className="font-semibold">{field.field1}</div>
-                  <div className="flex gap-1 text-gray-500">
-                    <div>{field.timeline?.from}</div>
-                    <span>-</span>
-                    <div>{field.timeline?.to ?? "至今"}</div>
-                  </div>
-                  <div
-                    dangerouslySetInnerHTML={{ __html: field.description }}
-                    className={index !== fields.length - 1 ? "pb-4" : ""}
-                  ></div>
-                </div>
-              ) : "field1" in field ? (
-                <div>
-                  <div className="font-semibold">
-                    {field.field1} - {field.field2}
-                  </div>
-                  <div className="flex gap-1 text-gray-500">
-                    <div>{field.field3}</div>
-                    <span>-</span>
-                    <div>{field.timeline?.from}</div>
-                    <span>-</span>
-                    <div>{field.timeline?.to ?? "至今"}</div>
-                  </div>
+                  <DateRange
+                    from={field.timeline?.from}
+                    to={field.timeline?.to}
+                  />
                   <div
                     dangerouslySetInnerHTML={{ __html: field.description }}
                     className={index !== fields.length - 1 ? "pb-4" : ""}
                   ></div>
                 </div>
               ) : (
-                ""
+                <div>
+                  <div className="font-semibold">
+                    {field.field1} - {field.field2}
+                  </div>
+                  <div className="flex gap-1 text-gray-500">
+                    <span>{field.field3}</span>
+                    <span>-</span>
+                    <DateRange
+                      from={field.timeline?.from}
+                      to={field.timeline?.to}
+                    />
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: field.description }}
+                    className={index !== fields.length - 1 ? "pb-4" : ""}
+                  ></div>
+                </div>
               )}
             </div>
           </Fragment>
