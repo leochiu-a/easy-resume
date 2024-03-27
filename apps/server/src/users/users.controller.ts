@@ -6,8 +6,8 @@ import {
   Patch,
   Param,
   Delete,
-  NotFoundException,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -43,17 +43,11 @@ export class UsersController {
     return users.map((user) => new UserEntity(user));
   }
 
-  @Get(':id')
+  @Get('me')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOkResponse({ type: UserEntity })
-  async findOne(@Param('id') id: string) {
-    const user = await this.usersService.findOne(id);
-    if (!user) {
-      throw new NotFoundException(`User with id ${id} not found`);
-    }
-
-    return new UserEntity(user);
+  async getCurrentUser(@Req() req: any) {
+    return new UserEntity(req.user);
   }
 
   @Patch(':id')
