@@ -1,6 +1,6 @@
 import ResumesAPI from "@/lib/api/resumes"
 
-import { ResumeForm } from "./_components/ResumeForm"
+import EditResumePageLayout from "./_components/EditResumePageLayout"
 
 /**
  * 編輯履歷頁
@@ -13,5 +13,5 @@ export default async function EditResumePage(props: {
   const res = await ResumesAPI.getResume(id)
   const resume = res.data
 
-  return <ResumeForm resume={resume} />
+  return <EditResumePageLayout resume={resume} />
 }

@@ -44,6 +44,9 @@ const ResumesAPI = {
   getResume: async (id: string) => {
     return axiosApiInstance.get<Resume>(`${BASE_URL}/resumes/${id}`)
   },
+  updateResume: async (id: string, resume: Resume) => {
+    return axiosApiInstance.patch<Resume>(`${BASE_URL}/resumes/${id}`, resume)
+  },
 }
 
 export default ResumesAPI
