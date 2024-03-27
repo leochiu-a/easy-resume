@@ -1,7 +1,7 @@
 "use client"
 
 import {
-  faCopy,
+  // faCopy,
   faDownload,
   faPenToSquare,
   faTrash,
@@ -53,10 +53,11 @@ const ResumeCard = ({ resume }: ResumeCardProps) => {
           <FontAwesomeIcon icon={faDownload} className="mr-2 size-4" />
           下載 PDF
         </Button>
-        <Button variant="ghost" className="mt-2 w-fit">
+        {/* TODO: 之後再來新增複製功能 */}
+        {/* <Button variant="ghost" className="mt-2 w-fit">
           <FontAwesomeIcon icon={faCopy} className="mr-2 size-4" />
           複製
-        </Button>
+        </Button> */}
 
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
