@@ -41,7 +41,31 @@ export class ResumesService {
   update(id: string, updateResumeDto: UpdateResumeDto) {
     return this.prisma.resume.update({
       where: { id },
-      data: updateResumeDto,
+      data: {
+        ...updateResumeDto,
+        socialLinks: {
+          deleteMany: {},
+          create: updateResumeDto.socialLinks,
+        },
+        groups: {
+          deleteMany: {},
+          create: updateResumeDto.groups.map((group) => {
+            return {
+              ...group,
+              fields: {
+                create: group.fields.map((field) => {
+                  return {
+                    ...field,
+                    timeline: {
+                      create: field.timeline,
+                    },
+                  };
+                }),
+              },
+            };
+          }),
+        },
+      },
     });
   }
 
