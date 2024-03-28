@@ -16,6 +16,9 @@ const ResumesAPI = {
   updateResume: async (id: string, resume: Resume) => {
     return axiosApiInstance.patch<Resume>(`/resumes/${id}`, resume)
   },
+  deleteResume: async (id: string) => {
+    return axiosApiInstance.delete(`/resumes/${id}`)
+  },
 }
 
 export default ResumesAPI

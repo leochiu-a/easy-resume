@@ -1,5 +1,6 @@
 "use server"
 
+import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
 import ResumesAPI from "@/lib/api/resumes"
@@ -19,4 +20,12 @@ export const updateResume = async (resumeId: string, resume: Resume) => {
   } catch (error) {
     return error
   }
+}
+
+export const deleteResume = async (resumeId: string) => {
+  const res = await ResumesAPI.deleteResume(resumeId)
+
+  revalidatePath("/resumes")
+
+  return res.data
 }

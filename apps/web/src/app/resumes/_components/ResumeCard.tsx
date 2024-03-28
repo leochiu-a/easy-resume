@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useTransition } from "react"
 import {
   // faCopy,
   faDownload,
@@ -10,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import dayjs from "dayjs"
 import Link from "next/link"
 
+import { deleteResume } from "@/app/actions/resumes"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -21,9 +23,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { useToast } from "@/components/ui/use-toast"
 import { Resume } from "@/types/api/resumes"
-
-import { useDeleteResume } from "../_hooks/useDeleteResume"
 
 interface ResumeCardProps {
   resume: Resume
@@ -31,8 +32,17 @@ interface ResumeCardProps {
 
 const ResumeCard = ({ resume }: ResumeCardProps) => {
   const { id, resumeTitle, updatedAt } = resume
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
+  const [isDeleting, startTransition] = useTransition()
 
-  const { open, setOpen, deleteResume, isDeleting } = useDeleteResume()
+  const { toast } = useToast()
+
+  const handleDeleteResume = () => {
+    startTransition(async () => {
+      const res = await deleteResume(id)
+      toast({ title: `履歷「${res.resumeTitle}」已成功刪除` })
+    })
+  }
 
   return (
     <div className="flex gap-6">
@@ -59,7 +69,7 @@ const ResumeCard = ({ resume }: ResumeCardProps) => {
           複製
         </Button> */}
 
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={openDeleteDialog} onOpenChange={setOpenDeleteDialog}>
           <DialogTrigger asChild>
             <Button variant="ghost" className="mt-2 w-fit">
               <FontAwesomeIcon icon={faTrash} className="mr-2 size-4" />
@@ -77,7 +87,7 @@ const ResumeCard = ({ resume }: ResumeCardProps) => {
             <DialogFooter>
               <Button
                 variant="outline"
-                onClick={deleteResume}
+                onClick={handleDeleteResume}
                 loading={isDeleting}
               >
                 刪除
