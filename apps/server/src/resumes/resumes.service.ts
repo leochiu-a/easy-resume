@@ -3,15 +3,18 @@ import { UpdateResumeDto } from './dto/update-resume.dto';
 import { PrismaService } from '@server/prisma/prisma.service';
 import { CreateResumeDto } from './dto/create-resume.dto';
 import { GroupLayout, GroupType } from '@prisma/client';
+import { UserEntity } from '@server/users/entities/user.entity';
 
 @Injectable()
 export class ResumesService {
   constructor(private prisma: PrismaService) {}
 
-  create(createResumeDto: CreateResumeDto) {
+  create(createResumeDto: CreateResumeDto, user: UserEntity) {
     return this.prisma.resume.create({
       data: {
         userId: createResumeDto.userId,
+        username: user.name,
+        email: user.email,
         groups: {
           create: [
             {
