@@ -8,19 +8,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import dayjs from "dayjs"
 
+import { cn } from "@/lib/utils/tailwindUtils"
 import { Field, GroupLayout, Resume } from "@/types/api/resumes"
 
 import { Avatar, AvatarImage } from "../ui/avatar"
 import { Typography } from "../ui/typography"
 
 const { Simple } = GroupLayout
-
-interface SectionProps {
-  title: string
-  fields?: Field[]
-  text?: string
-  layout?: GroupLayout
-}
 
 const DateRange = ({
   from,
@@ -40,7 +34,15 @@ const DateRange = ({
   )
 }
 
-const Section: FC<SectionProps> = ({ title, fields, text, layout }) => {
+interface SectionProps {
+  title: string
+  fields?: Field[]
+  text?: string
+  layout?: GroupLayout
+  hide: boolean
+}
+
+const Section: FC<SectionProps> = ({ title, fields, text, layout, hide }) => {
   const timelineElement = (
     <div className="relative top-1.5">
       <div className="flex h-full flex-col items-center">
@@ -51,7 +53,12 @@ const Section: FC<SectionProps> = ({ title, fields, text, layout }) => {
   )
 
   return (
-    <div className="grid grid-cols-[max-content_1fr] gap-x-4">
+    <div
+      className={cn(
+        "grid grid-cols-[max-content_1fr] gap-x-4",
+        hide && "hidden",
+      )}
+    >
       <FontAwesomeIcon icon={faUser} className="self-center" />
       <Typography variant="h4">{title}</Typography>
 
@@ -138,11 +145,21 @@ const BasicTemplate: FC<BasicTemplateProps> = ({
 
         <div className="flex gap-4">
           <span>{wantedJob}</span>
-          <span className="flex items-center gap-1">
+          <span
+            className={cn(
+              "flex items-center gap-1",
+              city.length === 0 && "hidden",
+            )}
+          >
             <FontAwesomeIcon icon={faLocationDot} className="size-5" />
             {city}
           </span>
-          <span className="flex items-center gap-1">
+          <span
+            className={cn(
+              "flex items-center gap-1",
+              phone.length === 0 && "hidden",
+            )}
+          >
             <FontAwesomeIcon icon={faMobileScreen} className="size-5" />
             {phone}
           </span>
@@ -164,26 +181,34 @@ const BasicTemplate: FC<BasicTemplateProps> = ({
             </div>
           </div>
 
-          <div className="mt-4 flex items-center justify-center gap-2">
-            <FontAwesomeIcon icon={faCircle} className="size-1.5" />
-            <span className="font-semibold">社群連結</span>
-            <FontAwesomeIcon icon={faCircle} className="size-1.5" />
-          </div>
-          <div>
-            {socialLinks.map((link, index) => (
-              <div key={index}>
-                <div>{link.name}</div>
-                <div>{link.url}</div>
+          {socialLinks.length > 0 && (
+            <>
+              <div className="mt-4 flex items-center justify-center gap-2">
+                <FontAwesomeIcon icon={faCircle} className="size-1.5" />
+                <span className="font-semibold">社群連結</span>
+                <FontAwesomeIcon icon={faCircle} className="size-1.5" />
               </div>
-            ))}
-          </div>
+              <div>
+                {socialLinks.map((link, index) => (
+                  <div key={index}>
+                    <div>{link.name}</div>
+                    <div>{link.url}</div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
         <div className="flex-[3] space-y-6">
-          <Section title="自我介紹" text={intro} />
+          <Section title="自我介紹" text={intro} hide={intro.length === 0} />
 
           {groups.map((section, index) => (
-            <Section {...section} key={index} />
+            <Section
+              {...section}
+              key={index}
+              hide={section.fields.length === 0}
+            />
           ))}
         </div>
       </div>
