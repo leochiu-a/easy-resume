@@ -2,13 +2,37 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateResumeDto } from './dto/update-resume.dto';
 import { PrismaService } from '@server/prisma/prisma.service';
 import { CreateResumeDto } from './dto/create-resume.dto';
+import { GroupLayout, GroupType } from '@prisma/client';
 
 @Injectable()
 export class ResumesService {
   constructor(private prisma: PrismaService) {}
 
   create(createResumeDto: CreateResumeDto) {
-    return this.prisma.resume.create({ data: createResumeDto });
+    return this.prisma.resume.create({
+      data: {
+        userId: createResumeDto.userId,
+        groups: {
+          create: [
+            {
+              title: '工作經歷',
+              type: GroupType.EmploymentHistory,
+              layout: GroupLayout.Complex,
+            },
+            {
+              title: '專業技能',
+              type: GroupType.Skills,
+              layout: GroupLayout.Simple,
+            },
+            {
+              title: '教育經歷',
+              type: GroupType.Education,
+              layout: GroupLayout.Complex,
+            },
+          ],
+        },
+      },
+    });
   }
 
   findAll() {
