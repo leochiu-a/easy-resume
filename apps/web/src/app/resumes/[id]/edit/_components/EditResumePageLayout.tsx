@@ -84,7 +84,7 @@ const EditResumePageLayout = ({ resume }: EditResumePageLayoutProps) => {
         </nav>
 
         <main>
-          <ResumeForm resume={resume} />
+          <ResumeForm />
         </main>
       </form>
     </FormProvider>

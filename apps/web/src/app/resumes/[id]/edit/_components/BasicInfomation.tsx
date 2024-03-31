@@ -1,3 +1,5 @@
+"use client"
+
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 
@@ -25,7 +27,7 @@ const BasicInformation: FC = () => {
           )}
         />
         <Controller
-          name="avatar"
+          name="avatarUrl"
           control={control}
           render={({ field }) => (
             <UploadImage onChange={field.onChange} value={field.value} />

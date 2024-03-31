@@ -15,7 +15,6 @@ axiosApiInstance.interceptors.request.use(async (config) => {
     config.headers.Authorization = `Bearer ${accessToken.value}`
   }
   config.headers.Accept = "application/json"
-  config.headers["Content-Type"] = "application/json"
 
   return config
 })
