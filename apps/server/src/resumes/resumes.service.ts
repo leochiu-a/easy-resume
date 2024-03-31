@@ -4,10 +4,15 @@ import { PrismaService } from '@server/prisma/prisma.service';
 import { CreateResumeDto } from './dto/create-resume.dto';
 import { GroupLayout, GroupType } from '@prisma/client';
 import { UserEntity } from '@server/users/entities/user.entity';
+import { getDownloadURL } from 'firebase/storage';
+import { FirebaseService } from '@server/firebase/firebase.service';
 
 @Injectable()
 export class ResumesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private firebaseService: FirebaseService,
+  ) {}
 
   create(createResumeDto: CreateResumeDto, user: UserEntity) {
     return this.prisma.resume.create({
@@ -59,9 +64,17 @@ export class ResumesService {
         },
       },
     });
+
     if (!resume) {
       throw new NotFoundException(`Resume with ${id} doesn't exist`);
     }
+
+    if (resume.avatarUrl && resume.avatarUrl?.length > 0) {
+      resume.avatarUrl = await this.firebaseService.getAvatarUrl(
+        resume.avatarUrl,
+      );
+    }
+
     return resume;
   }
 

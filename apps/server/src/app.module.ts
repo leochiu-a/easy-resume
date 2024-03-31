@@ -7,9 +7,19 @@ import { PrismaService } from './prisma/prisma.service';
 import { ResumesModule } from './resumes/resumes.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { UploadModule } from './upload/upload.module';
+import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), PrismaModule, ResumesModule, UsersModule, AuthModule],
+  imports: [
+    ConfigModule.forRoot(),
+    PrismaModule,
+    ResumesModule,
+    UsersModule,
+    AuthModule,
+    UploadModule,
+    FirebaseModule,
+  ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })

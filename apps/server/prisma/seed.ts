@@ -24,7 +24,7 @@ async function main() {
     create: {
       username: 'Leo Chiu',
       wantedJob: 'Senior Frontend Engineer',
-      avatarUrl: 'https://github.com/shadcn.png',
+      avatarUrl: '',
       city: 'Taipei',
       phone: '09123456789',
       email: 'leo@gmail.com',
