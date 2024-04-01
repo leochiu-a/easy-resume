@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -19,6 +20,7 @@ import { UpdateResumeDto } from './dto/update-resume.dto';
 import { ResumeEntity } from './entities/resume.entity';
 import { CreateResumeDto } from './dto/create-resume.dto';
 import { JwtAuthGuard } from '@server/auth/jwt-auth.guard';
+import { UserEntity } from '@server/users/entities/user.entity';
 
 @Controller('resumes')
 @ApiTags('resumes')
@@ -26,9 +28,12 @@ export class ResumesController {
   constructor(private readonly resumesService: ResumesService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ type: ResumeEntity })
-  async create(@Body() createResumeDto: CreateResumeDto) {
-    const newResume = await this.resumesService.create(createResumeDto);
+  async create(@Body() createResumeDto: CreateResumeDto, @Req() req: any) {
+    const user = req.user as UserEntity;
+    const newResume = await this.resumesService.create(createResumeDto, user);
     return new ResumeEntity(newResume);
   }
 

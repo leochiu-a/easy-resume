@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 
 import { MonthPicker } from "@/components/ui/MonthPicker"
 import { Switch } from "@/components/ui/switch"
@@ -13,10 +13,12 @@ interface LabeledDatePickerFieldProps {
   onChange: (value: { from: string | null; to: string | null }) => void
 }
 
-const LabeledDatePickerField = forwardRef<
-  HTMLElement,
-  LabeledDatePickerFieldProps
->(({ label, switchText, onChange, value }) => {
+const LabeledDatePickerField = ({
+  label,
+  switchText,
+  onChange,
+  value,
+}: LabeledDatePickerFieldProps) => {
   const [checked, setChecked] = useState(false)
 
   const handleCheckedChange = useCallback(
@@ -69,7 +71,7 @@ const LabeledDatePickerField = forwardRef<
       </div>
     </div>
   )
-})
+}
 LabeledDatePickerField.displayName = "LabeledDatePickerField"
 
 export { LabeledDatePickerField }

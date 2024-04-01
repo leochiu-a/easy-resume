@@ -1,18 +1,25 @@
 import { NextRequest } from "next/server"
 
-const protectedRoutes = ["/resumes"]
+const protectedRoutes = [
+  /\/resumes$/,
+  /\/resumes\/(?<id>.*)$/,
+  /\/resumes\/(?<id>.*)\/edit$/,
+]
 const authRoutes = ["/login"]
 
 export function middleware(request: NextRequest) {
-  const currentUser = request.cookies.get("accessToken")?.value
+  const accessToken = request.cookies.get("accessToken")?.value
 
-  if (protectedRoutes.includes(request.nextUrl.pathname) && !currentUser) {
-    request.cookies.delete("currentUser")
+  if (
+    protectedRoutes.some((path) => path.test(request.nextUrl.pathname)) &&
+    !accessToken
+  ) {
+    request.cookies.delete("accessToken")
 
     return Response.redirect(new URL("/login", request.url))
   }
 
-  if (authRoutes.includes(request.nextUrl.pathname) && currentUser) {
+  if (authRoutes.includes(request.nextUrl.pathname) && accessToken) {
     return Response.redirect(new URL("/resumes", request.url))
   }
 }

@@ -1,13 +1,10 @@
-import React from "react"
-
 import BasicTemplate from "@/components/resume-templates/BasicTemplate"
 import { useFormValues } from "@/hooks/useFormValues"
-import { Resume } from "@/types/resume"
+import { Resume } from "@/types/api/resumes"
 
 const ResumePreviewer = () => {
   const {
-    resumeTitle,
-    wantedJobTitle,
+    wantedJob,
     username,
     intro,
     avatarUrl,
@@ -15,7 +12,7 @@ const ResumePreviewer = () => {
     phone,
     email,
     socialLinks,
-    resumeSections,
+    groups,
   } = useFormValues<Resume>()
 
   return (
@@ -26,11 +23,10 @@ const ResumePreviewer = () => {
         email={email}
         intro={intro}
         phone={phone}
-        resumeSections={resumeSections}
-        resumeTitle={resumeTitle}
+        groups={groups}
         socialLinks={socialLinks}
         username={username}
-        wantedJobTitle={wantedJobTitle}
+        wantedJob={wantedJob}
       />
     </div>
   )

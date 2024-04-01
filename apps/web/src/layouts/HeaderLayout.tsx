@@ -37,7 +37,9 @@ const HeaderLayout: FC<PropsWithChildren> = ({ children }) => {
         </nav>
       </header>
 
-      <main className="mx-auto w-full max-w-[1200px]">{children}</main>
+      <main className="px-10">
+        <div className="mx-auto w-full max-w-[1200px] ">{children}</div>
+      </main>
     </>
   )
 }

@@ -1,3 +1,5 @@
+"use client"
+
 import { FC } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 
@@ -14,7 +16,7 @@ const BasicInformation: FC = () => {
       <Typography variant="h4">基本訊息</Typography>
       <div className="mb-8 mt-4 grid grid-cols-2 gap-4">
         <Controller
-          name="wantedJobTitle"
+          name="wantedJob"
           control={control}
           render={({ field }) => (
             <LabeledInputField
@@ -25,7 +27,7 @@ const BasicInformation: FC = () => {
           )}
         />
         <Controller
-          name="avatar"
+          name="avatarUrl"
           control={control}
           render={({ field }) => (
             <UploadImage onChange={field.onChange} value={field.value} />
