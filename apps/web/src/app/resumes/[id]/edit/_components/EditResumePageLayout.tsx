@@ -1,6 +1,8 @@
 "use client"
-import { KeyboardEvent, useTransition } from "react"
+
+import { KeyboardEvent, useRef, useTransition } from "react"
 import { FormProvider, useForm } from "react-hook-form"
+import { useReactToPrint } from "react-to-print"
 import {
   faChevronLeft,
   faCrown,
@@ -15,6 +17,7 @@ import { Button } from "@/components/ui/button"
 import { Resume } from "@/types/api/resumes"
 
 import { ResumeForm } from "./ResumeForm"
+import ResumePreviewer from "./ResumePreviewer"
 
 interface SaveButtonProps {
   loading: boolean
@@ -40,6 +43,11 @@ interface EditResumePageLayoutProps {
 
 const EditResumePageLayout = ({ resume }: EditResumePageLayoutProps) => {
   const [isPending, startTransition] = useTransition()
+  const componentRef = useRef<HTMLDivElement>(null)
+
+  const handleDownload = useReactToPrint({
+    content: () => componentRef.current,
+  })
 
   const formMethods = useForm<Resume>({
     defaultValues: resume,
@@ -75,7 +83,7 @@ const EditResumePageLayout = ({ resume }: EditResumePageLayoutProps) => {
             <FontAwesomeIcon icon={faCrown} className="mr-2" />
             升級使用更多模板
           </Button>
-          <Button variant="secondary">
+          <Button variant="secondary" onClick={handleDownload}>
             <FontAwesomeIcon icon={faFilePdf} className="mr-2" />
             下載 PDF
           </Button>
@@ -85,7 +93,16 @@ const EditResumePageLayout = ({ resume }: EditResumePageLayoutProps) => {
       <main>
         <FormProvider {...formMethods}>
           <form action={submitAction} onKeyDown={checkKeyDown} id="resume-form">
-            <ResumeForm />
+            <div className="flex">
+              <div className="w-1/2 p-12">
+                <ResumeForm />
+              </div>
+              <div className="sticky top-0 h-screen w-1/2 overflow-auto bg-slate-200">
+                <div className="m-8 overflow-hidden rounded-lg">
+                  <ResumePreviewer ref={componentRef} />
+                </div>
+              </div>
+            </div>
           </form>
         </FormProvider>
       </main>
