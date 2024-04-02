@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren } from "react"
+import { cookies } from "next/headers"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
@@ -6,6 +7,8 @@ import { Typography } from "@/components/ui/typography"
 import { UserDropdown } from "@/components/UserDropdown"
 
 const HeaderLayout: FC<PropsWithChildren> = ({ children }) => {
+  const accessToken = cookies().get("accessToken")
+
   return (
     <>
       <header className="h-20">
@@ -31,14 +34,20 @@ const HeaderLayout: FC<PropsWithChildren> = ({ children }) => {
                 <Link href="/resumes">我的履歷</Link>
               </Button>
 
-              <UserDropdown />
+              {accessToken ? (
+                <UserDropdown />
+              ) : (
+                <Button variant="ghost" asChild>
+                  <Link href="/login">登入</Link>
+                </Button>
+              )}
             </div>
           </div>
         </nav>
       </header>
 
       <main className="px-10">
-        <div className="mx-auto w-full max-w-[1200px] ">{children}</div>
+        <div className="mx-auto w-full max-w-[1200px]">{children}</div>
       </main>
     </>
   )

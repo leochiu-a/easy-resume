@@ -2,6 +2,7 @@
 
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Cookies from "js-cookie"
 import { useRouter } from "next/navigation"
 
 import { Avatar } from "@/components/ui/avatar"
@@ -20,6 +21,7 @@ const UserDropdown = () => {
   const router = useRouter()
 
   const logout = () => {
+    Cookies.remove("accessToken")
     router.push("/login")
   }
 
@@ -49,7 +51,9 @@ const UserDropdown = () => {
           <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={logout}>Log out</DropdownMenuItem>
+        <DropdownMenuItem onClick={logout} className="cursor-pointer">
+          Log out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
