@@ -31,7 +31,7 @@ const HeaderLayout: FC<PropsWithChildren> = ({ children }) => {
                 <Link href="/pricing">價格方案</Link>
               </Button>
               <Button variant="ghost" asChild>
-                <Link href="/resumes">我的履歷</Link>
+                <Link href={accessToken ? "/resumes" : "/login"}>我的履歷</Link>
               </Button>
 
               {accessToken ? (
