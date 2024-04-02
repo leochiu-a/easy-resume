@@ -10,14 +10,19 @@ import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
+  // DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Me } from "@/lib/api/user"
 
-const UserDropdown = () => {
+interface UserDropdownProps {
+  me: Me
+}
+
+const UserDropdown = ({ me }: UserDropdownProps) => {
   const router = useRouter()
 
   const logout = () => {
@@ -37,19 +42,23 @@ const UserDropdown = () => {
       <DropdownMenuContent className="w-56" align="end">
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">shadcn</p>
-            <p className="text-muted-foreground text-xs leading-none">
-              m@example.com
-            </p>
+            {me.name && (
+              <p className="text-sm font-medium leading-none">{me.name}</p>
+            )}
+            {me.email && (
+              <p className="text-muted-foreground text-xs leading-none">
+                {me.email}
+              </p>
+            )}
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        {/* <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>Profile</DropdownMenuItem>
           <DropdownMenuItem>Billing</DropdownMenuItem>
           <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuItem>New Team</DropdownMenuItem>
-        </DropdownMenuGroup>
+        </DropdownMenuGroup> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={logout} className="cursor-pointer">
           Log out

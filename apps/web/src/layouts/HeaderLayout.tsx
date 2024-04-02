@@ -1,13 +1,19 @@
-import { FC, PropsWithChildren } from "react"
+import { PropsWithChildren } from "react"
 import { cookies } from "next/headers"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
 import { UserDropdown } from "@/components/UserDropdown"
+import { UserAPI } from "@/lib/api/user"
 
-const HeaderLayout: FC<PropsWithChildren> = ({ children }) => {
+const HeaderLayout = async ({ children }: PropsWithChildren) => {
   const accessToken = cookies().get("accessToken")
+
+  let me
+  if (accessToken) {
+    me = await UserAPI.me()
+  }
 
   return (
     <>
@@ -34,8 +40,8 @@ const HeaderLayout: FC<PropsWithChildren> = ({ children }) => {
                 <Link href={accessToken ? "/resumes" : "/login"}>我的履歷</Link>
               </Button>
 
-              {accessToken ? (
-                <UserDropdown />
+              {accessToken && me ? (
+                <UserDropdown me={me} />
               ) : (
                 <Button variant="ghost" asChild>
                   <Link href="/login">登入</Link>
