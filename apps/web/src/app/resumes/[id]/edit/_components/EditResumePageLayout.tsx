@@ -1,6 +1,14 @@
 "use client"
-import { KeyboardEvent, useTransition } from "react"
+
+import {
+  KeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react"
 import { FormProvider, useForm } from "react-hook-form"
+import { useReactToPrint } from "react-to-print"
 import {
   faChevronLeft,
   faCrown,
@@ -15,6 +23,7 @@ import { Button } from "@/components/ui/button"
 import { Resume } from "@/types/api/resumes"
 
 import { ResumeForm } from "./ResumeForm"
+import ResumePreviewer from "./ResumePreviewer"
 
 interface SaveButtonProps {
   loading: boolean
@@ -40,6 +49,13 @@ interface EditResumePageLayoutProps {
 
 const EditResumePageLayout = ({ resume }: EditResumePageLayoutProps) => {
   const [isPending, startTransition] = useTransition()
+  const resumeRef = useRef<HTMLDivElement>(null)
+  const componentRef = useRef<HTMLDivElement>(null)
+  const [height, setHeight] = useState("100%")
+
+  const handleDownload = useReactToPrint({
+    content: () => resumeRef.current,
+  })
 
   const formMethods = useForm<Resume>({
     defaultValues: resume,
@@ -59,6 +75,20 @@ const EditResumePageLayout = ({ resume }: EditResumePageLayoutProps) => {
     if (e.key === "Enter") e.preventDefault()
   }
 
+  useEffect(() => {
+    if (!componentRef.current) return
+
+    const resizeObserver = new ResizeObserver(() => {
+      const clientHeight = componentRef.current?.clientHeight ?? 0
+      setHeight(`${clientHeight * 0.65}px`)
+    })
+    resizeObserver.observe(componentRef.current)
+
+    return () => {
+      resizeObserver.disconnect() // clean up
+    }
+  }, [])
+
   return (
     <>
       <nav className="flex bg-slate-600 px-10 py-2">
@@ -75,7 +105,7 @@ const EditResumePageLayout = ({ resume }: EditResumePageLayoutProps) => {
             <FontAwesomeIcon icon={faCrown} className="mr-2" />
             升級使用更多模板
           </Button>
-          <Button variant="secondary">
+          <Button variant="secondary" onClick={handleDownload}>
             <FontAwesomeIcon icon={faFilePdf} className="mr-2" />
             下載 PDF
           </Button>
@@ -85,7 +115,21 @@ const EditResumePageLayout = ({ resume }: EditResumePageLayoutProps) => {
       <main>
         <FormProvider {...formMethods}>
           <form action={submitAction} onKeyDown={checkKeyDown} id="resume-form">
-            <ResumeForm />
+            <div className="flex">
+              <div className="w-1/2 p-12">
+                <ResumeForm />
+              </div>
+              <div className="sticky top-0 mb-[-220px] h-screen w-1/2 overflow-auto bg-slate-200 [scrollbar-width:none]">
+                <div className="m-8" style={{ height }}>
+                  <div
+                    className="flex origin-top scale-[0.65] justify-center"
+                    ref={componentRef}
+                  >
+                    <ResumePreviewer ref={resumeRef} />
+                  </div>
+                </div>
+              </div>
+            </div>
           </form>
         </FormProvider>
       </main>
