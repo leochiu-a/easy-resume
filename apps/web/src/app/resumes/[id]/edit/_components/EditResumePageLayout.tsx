@@ -1,6 +1,12 @@
 "use client"
 
-import { KeyboardEvent, useRef, useTransition } from "react"
+import {
+  KeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { useReactToPrint } from "react-to-print"
 import {
@@ -44,6 +50,7 @@ interface EditResumePageLayoutProps {
 const EditResumePageLayout = ({ resume }: EditResumePageLayoutProps) => {
   const [isPending, startTransition] = useTransition()
   const componentRef = useRef<HTMLDivElement>(null)
+  const [height, setHeight] = useState("100%")
 
   const handleDownload = useReactToPrint({
     content: () => componentRef.current,
@@ -66,6 +73,20 @@ const EditResumePageLayout = ({ resume }: EditResumePageLayoutProps) => {
   const checkKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
     if (e.key === "Enter") e.preventDefault()
   }
+
+  useEffect(() => {
+    if (!componentRef.current) return
+
+    const resizeObserver = new ResizeObserver(() => {
+      const clientHeight = componentRef.current?.clientHeight ?? 0
+      setHeight(`${clientHeight * 0.65}px`)
+    })
+    resizeObserver.observe(componentRef.current)
+
+    return () => {
+      resizeObserver.disconnect() // clean up
+    }
+  }, [])
 
   return (
     <>
@@ -97,9 +118,11 @@ const EditResumePageLayout = ({ resume }: EditResumePageLayoutProps) => {
               <div className="w-1/2 p-12">
                 <ResumeForm />
               </div>
-              <div className="sticky top-0 h-screen w-1/2 overflow-auto bg-slate-200">
-                <div className="m-8 overflow-hidden rounded-lg">
-                  <ResumePreviewer ref={componentRef} />
+              <div className="sticky top-0 mb-[-220px] h-screen w-1/2 overflow-auto bg-slate-200 [scrollbar-width:none]">
+                <div className="m-8" style={{ height }}>
+                  <div className="flex origin-top scale-[0.65] justify-center">
+                    <ResumePreviewer ref={componentRef} />
+                  </div>
                 </div>
               </div>
             </div>

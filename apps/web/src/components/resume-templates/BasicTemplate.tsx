@@ -4,12 +4,11 @@ import {
   faEnvelope,
   faLocationDot,
   faPhone,
-  faUser,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import dayjs from "dayjs"
 
-import socialMediaIcon from "@/lib/utils/socialMediaIcon"
+import { groupIcon, socialMediaIcon } from "@/lib/utils/iconMap"
 import { cn } from "@/lib/utils/tailwindUtils"
 import { Field, GroupLayout, Resume } from "@/types/api/resumes"
 
@@ -44,9 +43,17 @@ interface SectionProps {
   text?: string
   layout?: GroupLayout
   hide: boolean
+  type: string
 }
 
-const Section: FC<SectionProps> = ({ title, fields, text, layout, hide }) => {
+const Section: FC<SectionProps> = ({
+  title,
+  fields,
+  text,
+  layout,
+  hide,
+  type,
+}) => {
   const timelineElement = (
     <div className="relative top-1.5">
       <div className="flex h-full flex-col items-center">
@@ -63,7 +70,7 @@ const Section: FC<SectionProps> = ({ title, fields, text, layout, hide }) => {
         hide && "hidden",
       )}
     >
-      <FontAwesomeIcon icon={faUser} className="self-center" />
+      <FontAwesomeIcon icon={groupIcon(type)} className="self-center" />
       <Typography variant="h4">{title}</Typography>
 
       {text ? (
@@ -144,7 +151,7 @@ const BasicTemplate = forwardRef<HTMLDivElement, BasicTemplateProps>(
     ref,
   ) => {
     return (
-      <div className="bg-white p-10">
+      <div className="w-[874px] min-w-[874px] rounded-lg bg-white p-10">
         <div ref={ref}>
           <div className="flex flex-col items-center gap-2">
             <Avatar>
@@ -204,13 +211,14 @@ const BasicTemplate = forwardRef<HTMLDivElement, BasicTemplateProps>(
                 title="自我介紹"
                 text={intro}
                 hide={intro.length === 0}
+                type="intro"
               />
 
-              {groups.map((section, index) => (
+              {groups.map((group, index) => (
                 <Section
-                  {...section}
+                  {...group}
                   key={index}
-                  hide={section.fields.length === 0}
+                  hide={group.fields.length === 0}
                 />
               ))}
             </div>
