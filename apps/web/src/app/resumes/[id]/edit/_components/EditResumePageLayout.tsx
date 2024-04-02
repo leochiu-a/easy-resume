@@ -49,11 +49,12 @@ interface EditResumePageLayoutProps {
 
 const EditResumePageLayout = ({ resume }: EditResumePageLayoutProps) => {
   const [isPending, startTransition] = useTransition()
+  const resumeRef = useRef<HTMLDivElement>(null)
   const componentRef = useRef<HTMLDivElement>(null)
   const [height, setHeight] = useState("100%")
 
   const handleDownload = useReactToPrint({
-    content: () => componentRef.current,
+    content: () => resumeRef.current,
   })
 
   const formMethods = useForm<Resume>({
@@ -120,8 +121,11 @@ const EditResumePageLayout = ({ resume }: EditResumePageLayoutProps) => {
               </div>
               <div className="sticky top-0 mb-[-220px] h-screen w-1/2 overflow-auto bg-slate-200 [scrollbar-width:none]">
                 <div className="m-8" style={{ height }}>
-                  <div className="flex origin-top scale-[0.65] justify-center">
-                    <ResumePreviewer ref={componentRef} />
+                  <div
+                    className="flex origin-top scale-[0.65] justify-center"
+                    ref={componentRef}
+                  >
+                    <ResumePreviewer ref={resumeRef} />
                   </div>
                 </div>
               </div>
