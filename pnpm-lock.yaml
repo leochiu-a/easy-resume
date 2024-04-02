@@ -222,9 +222,6 @@ importers:
       next:
         specifier: 14.1.0
         version: 14.1.0(react-dom@18.2.0)(react@18.2.0)
-      nextjs-progressbar:
-        specifier: ^0.0.16
-        version: 0.0.16(next@14.1.0)(react@18.2.0)
       nextjs-toploader:
         specifier: ^1.6.11
         version: 1.6.11(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
@@ -7579,19 +7576,6 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
-    dev: false
-
-  /nextjs-progressbar@0.0.16(next@14.1.0)(react@18.2.0):
-    resolution: {integrity: sha512-GV0fD38EMD3vSDCmkq+tObmoup6QA91a6a9MxGuhJZuRk/9TNsrHGnIQQQ/sggkMkXuT4fBgF6jRjFwScDT3zA==}
-    peerDependencies:
-      next: '>= 6.0.0'
-      react: '>= 16.0.0'
-    dependencies:
-      '@types/nprogress': 0.2.3
-      next: 14.1.0(react-dom@18.2.0)(react@18.2.0)
-      nprogress: 0.2.0
-      prop-types: 15.8.1
-      react: 18.2.0
     dev: false
 
   /nextjs-toploader@1.6.11(next@14.1.0)(react-dom@18.2.0)(react@18.2.0):
