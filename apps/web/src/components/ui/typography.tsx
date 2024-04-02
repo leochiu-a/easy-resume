@@ -16,7 +16,7 @@ export const typographyVariants = cva("text-xl", {
       default: "",
       lead: "text-muted-foreground text-xl",
       large: "text-lg font-semibold",
-      small: "text-sm font-medium leading-none",
+      small: "text-sm font-medium",
       muted: "text-muted-foreground text-sm",
       removePMargin: "[&:not(:first-child)]:mt-0",
     },

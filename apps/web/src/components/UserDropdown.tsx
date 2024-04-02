@@ -3,6 +3,7 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Cookies from "js-cookie"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 import { Avatar } from "@/components/ui/avatar"
@@ -10,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   // DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
@@ -52,13 +54,15 @@ const UserDropdown = ({ me }: UserDropdownProps) => {
             )}
           </div>
         </DropdownMenuLabel>
-        {/* <DropdownMenuSeparator />
+        <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem>Settings</DropdownMenuItem>
-          <DropdownMenuItem>New Team</DropdownMenuItem>
-        </DropdownMenuGroup> */}
+          <DropdownMenuItem className="cursor-pointer">
+            <Link href="/account">帳號設定</Link>
+          </DropdownMenuItem>
+          {/* <DropdownMenuItem>Billing</DropdownMenuItem> */}
+          {/* <DropdownMenuItem>Settings</DropdownMenuItem> */}
+          {/* <DropdownMenuItem>New Team</DropdownMenuItem> */}
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={logout} className="cursor-pointer">
           Log out
