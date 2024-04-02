@@ -1,5 +1,10 @@
-import HeaderLayout from "@/layouts/HeaderLayout"
+import Header from "@/layouts/Header"
 
 export default function Template({ children }: { children: React.ReactNode }) {
-  return <HeaderLayout>{children}</HeaderLayout>
+  return (
+    <>
+      <Header />
+      {children}
+    </>
+  )
 }
