@@ -1,6 +1,6 @@
 import { axiosApiInstance } from "./common"
 
-interface Me {
+export interface Me {
   id: string
   name: string
   email: string

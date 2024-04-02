@@ -4,6 +4,7 @@ const protectedRoutes = [
   /\/resumes$/,
   /\/resumes\/(?<id>.*)$/,
   /\/resumes\/(?<id>.*)\/edit$/,
+  /account/,
 ]
 const authRoutes = ["/login"]
 

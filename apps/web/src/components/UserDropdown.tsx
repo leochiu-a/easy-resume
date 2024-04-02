@@ -2,6 +2,8 @@
 
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Cookies from "js-cookie"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 import { Avatar } from "@/components/ui/avatar"
@@ -10,16 +12,23 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
+  // DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Me } from "@/lib/api/user"
 
-const UserDropdown = () => {
+interface UserDropdownProps {
+  me: Me
+}
+
+const UserDropdown = ({ me }: UserDropdownProps) => {
   const router = useRouter()
 
   const logout = () => {
+    Cookies.remove("accessToken")
     router.push("/login")
   }
 
@@ -35,21 +44,29 @@ const UserDropdown = () => {
       <DropdownMenuContent className="w-56" align="end">
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">shadcn</p>
-            <p className="text-muted-foreground text-xs leading-none">
-              m@example.com
-            </p>
+            {me.name && (
+              <p className="text-sm font-medium leading-none">{me.name}</p>
+            )}
+            {me.email && (
+              <p className="text-muted-foreground text-xs leading-none">
+                {me.email}
+              </p>
+            )}
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem>Settings</DropdownMenuItem>
-          <DropdownMenuItem>New Team</DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer">
+            <Link href="/account">帳號設定</Link>
+          </DropdownMenuItem>
+          {/* <DropdownMenuItem>Billing</DropdownMenuItem> */}
+          {/* <DropdownMenuItem>Settings</DropdownMenuItem> */}
+          {/* <DropdownMenuItem>New Team</DropdownMenuItem> */}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={logout}>Log out</DropdownMenuItem>
+        <DropdownMenuItem onClick={logout} className="cursor-pointer">
+          Log out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

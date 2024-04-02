@@ -1,5 +1,6 @@
 import { Typography } from "@/components/ui/typography"
-import HeaderLayout from "@/layouts/HeaderLayout"
+import Header from "@/layouts/Header"
+import Main from "@/layouts/Main"
 import ResumesAPI from "@/lib/api/resumes"
 import { UserAPI } from "@/lib/api/user"
 
@@ -16,19 +17,22 @@ export default async function Resumes() {
   const [resumes, user] = await Promise.all([resumeRes, userRes])
 
   return (
-    <HeaderLayout>
-      <div className="mt-6 h-screen">
-        <div className="flex justify-between">
-          <Typography variant="h3">我的履歷</Typography>
-          <CreateResumeButton userId={user.id} />
-        </div>
+    <>
+      <Header />
+      <Main>
+        <div className="mt-6 h-screen">
+          <div className="flex justify-between">
+            <Typography variant="h3">我的履歷</Typography>
+            <CreateResumeButton userId={user.id} />
+          </div>
 
-        <div className="mt-6 grid grid-cols-2 gap-y-10">
-          {resumes.map((resume) => (
-            <ResumeCard resume={resume} key={resume.id} />
-          ))}
+          <div className="mt-6 grid grid-cols-2 gap-y-10">
+            {resumes.map((resume) => (
+              <ResumeCard resume={resume} key={resume.id} />
+            ))}
+          </div>
         </div>
-      </div>
-    </HeaderLayout>
+      </Main>
+    </>
   )
 }
