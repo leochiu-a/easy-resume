@@ -6,6 +6,7 @@ RUN corepack enable
 FROM base as build
 WORKDIR /app
 COPY . .
+COPY .env.local apps/web
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run --filter=web build
 RUN pnpm deploy --filter=web --prod /prod/web
