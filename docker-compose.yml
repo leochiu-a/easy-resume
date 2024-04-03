@@ -26,5 +26,12 @@ services:
       db:
         condition: service_healthy
 
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - 3000:3000
+
 volumes:
   resume-postgres:
