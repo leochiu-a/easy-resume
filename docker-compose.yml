@@ -8,8 +8,23 @@ services:
       POSTGRES_PASSWORD: mypassword
     volumes:
       - resume-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready']
+      interval: 1s
+      timeout: 5s
+      retries: 10
     ports:
       - 5433:5432
+  
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   resume-postgres:
