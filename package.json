@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install",
+    "prepare": "test -d node_modules/husky && husky install || echo \"husky is not installed\"",
     "dev": "pnpm run --parallel dev",
     "build:server": "pnpm --filter server build",
     "build:web": "pnpm --filter web build",
