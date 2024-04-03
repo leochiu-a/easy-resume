@@ -2,10 +2,8 @@ import axios from "axios"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"
-
 export const axiosApiInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
 })
 
