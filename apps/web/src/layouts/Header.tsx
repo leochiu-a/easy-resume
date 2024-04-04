@@ -28,9 +28,10 @@ const Header = async () => {
             <Button variant="ghost" asChild>
               <Link href="/templates">履歷模板</Link>
             </Button>
-            <Button variant="ghost" asChild>
+            {/* TODO: 有時間再來做 */}
+            {/* <Button variant="ghost" asChild>
               <Link href="/examples">履歷範本</Link>
-            </Button>
+            </Button> */}
             <Button variant="ghost" asChild>
               <Link href="/pricing">價格方案</Link>
             </Button>
