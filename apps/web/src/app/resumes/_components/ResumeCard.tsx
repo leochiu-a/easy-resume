@@ -4,6 +4,7 @@ import { useState, useTransition } from "react"
 import {
   // faCopy,
   faDownload,
+  faEye,
   faPenToSquare,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons"
@@ -59,19 +60,25 @@ const ResumeCard = ({ resume }: ResumeCardProps) => {
             編輯
           </Link>
         </Button>
-        <Button variant="ghost" className="mt-2 w-fit">
+        <Button variant="ghost" className="w-fit" asChild>
+          <Link href={`/resumes/${id}`}>
+            <FontAwesomeIcon icon={faEye} className="mr-2 size-4" />
+            在線履歷
+          </Link>
+        </Button>
+        <Button variant="ghost" className="w-fit">
           <FontAwesomeIcon icon={faDownload} className="mr-2 size-4" />
           下載 PDF
         </Button>
         {/* TODO: 之後再來新增複製功能 */}
-        {/* <Button variant="ghost" className="mt-2 w-fit">
+        {/* <Button variant="ghost" className="w-fit">
           <FontAwesomeIcon icon={faCopy} className="mr-2 size-4" />
           複製
         </Button> */}
 
         <Dialog open={openDeleteDialog} onOpenChange={setOpenDeleteDialog}>
           <DialogTrigger asChild>
-            <Button variant="ghost" className="mt-2 w-fit">
+            <Button variant="ghost" className="w-fit">
               <FontAwesomeIcon icon={faTrash} className="mr-2 size-4" />
               刪除
             </Button>

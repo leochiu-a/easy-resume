@@ -17,6 +17,7 @@ module.exports = {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "tailwindcss/no-custom-classname": "off",
+    "@next/next/no-img-element": "off",
   },
   overrides: [
     {

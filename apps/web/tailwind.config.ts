@@ -68,10 +68,16 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "blink-caret": {
+          from: { borderColor: "transparent" },
+          to: { borderColor: "transparent" },
+          "50%": { borderColor: "currentColor" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "blink-caret": "blink-caret 0.75s step-end infinite",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
