@@ -70,7 +70,7 @@ const Section: FC<SectionProps> = ({
         hide && "hidden",
       )}
     >
-      <FontAwesomeIcon icon={groupIcon(type)} className="self-center" />
+      <FontAwesomeIcon icon={groupIcon(type)} className="size-4 self-center" />
       <Typography variant="h4">{title}</Typography>
 
       {text ? (
@@ -154,9 +154,11 @@ const BasicTemplate = forwardRef<HTMLDivElement, BasicTemplateProps>(
       <div className="w-[874px] min-w-[874px] rounded-lg bg-white p-10">
         <div ref={ref}>
           <div className="flex flex-col items-center gap-2">
-            <Avatar>
-              <AvatarImage src={avatarUrl} />
-            </Avatar>
+            {avatarUrl && (
+              <Avatar>
+                <AvatarImage src={avatarUrl} />
+              </Avatar>
+            )}
             <div className="flex items-baseline gap-4">
               <Typography variant="h2" affects="removePMargin">
                 {username}
@@ -170,16 +172,22 @@ const BasicTemplate = forwardRef<HTMLDivElement, BasicTemplateProps>(
               <div className="space-y-2">
                 <span className="font-semibold">個人資訊</span>
                 <div className="space-y-1">
-                  <div>
-                    <FontAwesomeIcon icon={faLocationDot} className="mr-2" />
+                  <div className="flex items-center">
+                    <FontAwesomeIcon
+                      icon={faLocationDot}
+                      className="mr-2 size-4"
+                    />
                     {city}
                   </div>
-                  <div>
-                    <FontAwesomeIcon icon={faPhone} className="mr-2" />
+                  <div className="flex items-center">
+                    <FontAwesomeIcon icon={faPhone} className="mr-2 size-4" />
                     {phone}
                   </div>
-                  <div>
-                    <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
+                  <div className="flex items-center">
+                    <FontAwesomeIcon
+                      icon={faEnvelope}
+                      className="mr-2 size-4"
+                    />
                     {email}
                   </div>
                 </div>
@@ -192,10 +200,10 @@ const BasicTemplate = forwardRef<HTMLDivElement, BasicTemplateProps>(
 
                     <div className="space-y-1">
                       {socialLinks.map((link, index) => (
-                        <div key={index}>
+                        <div key={index} className="flex items-center">
                           <FontAwesomeIcon
                             icon={socialMediaIcon(link.name)}
-                            className="mr-2"
+                            className="mr-2 size-4"
                           />
                           {link.url}
                         </div>
