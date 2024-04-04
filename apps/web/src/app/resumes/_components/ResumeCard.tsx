@@ -60,7 +60,7 @@ const ResumeCard = ({ resume }: ResumeCardProps) => {
             編輯
           </Link>
         </Button>
-        <Button variant="ghost" className="mt-1 w-fit" asChild>
+        <Button variant="ghost" className="w-fit" asChild>
           <Link href={`/resumes/${id}`}>
             <FontAwesomeIcon icon={faEye} className="mr-2 size-4" />
             在線履歷
