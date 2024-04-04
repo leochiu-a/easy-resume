@@ -1,4 +1,5 @@
 import { Typography } from "@/components/ui/typography"
+import { Footer } from "@/layouts/Footer"
 import Header from "@/layouts/Header"
 import Main from "@/layouts/Main"
 import ResumesAPI from "@/lib/api/resumes"
@@ -20,7 +21,7 @@ export default async function Resumes() {
     <>
       <Header />
       <Main>
-        <div className="mt-6 h-screen">
+        <div className="my-10">
           <div className="flex justify-between">
             <Typography variant="h3">我的履歷</Typography>
             <CreateResumeButton userId={user.id} />
@@ -33,6 +34,7 @@ export default async function Resumes() {
           </div>
         </div>
       </Main>
+      <Footer />
     </>
   )
 }
