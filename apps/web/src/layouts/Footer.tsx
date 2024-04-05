@@ -43,7 +43,7 @@ const Footer = () => {
               <Link href="/privacy">隱私權政策</Link>
             </Typography>
             <Typography variant="p" affects="removePMargin">
-              <Link href="/releases">使用者條款</Link>
+              <Link href="/terms-of-service">使用者條款</Link>
             </Typography>
           </div>
 
