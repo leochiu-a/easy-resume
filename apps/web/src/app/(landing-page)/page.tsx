@@ -43,7 +43,7 @@ export default function Home() {
       <div className="mx-auto mt-20 flex max-w-[800px] items-center justify-between">
         <div className="w-[300px]">
           <Typography variant="h2" className="flex items-center">
-            <FontAwesomeIcon icon={faPalette} className="mr-2" />
+            <FontAwesomeIcon icon={faPalette} className="mr-2 size-8" />
             多種履歷模板
           </Typography>
           <Typography variant="p">
@@ -67,10 +67,7 @@ export default function Home() {
         </div>
         <div className="w-[350px]">
           <Typography variant="h2" className="flex items-center">
-            <FontAwesomeIcon
-              icon={faStarOfDavid}
-              className="mr-2 flex items-center"
-            />
+            <FontAwesomeIcon icon={faStarOfDavid} className="mr-2 size-8" />
             線上履歷與下載 PDF
           </Typography>
           <Typography variant="p">
