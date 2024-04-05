@@ -30,8 +30,8 @@ const pricingData = [
   },
   {
     function: "線上分享履歷",
-    free: <FontAwesomeIcon icon={faCircleCheck} />,
-    premium: <FontAwesomeIcon icon={faCircleCheck} />,
+    free: <FontAwesomeIcon icon={faCircleCheck} className="size-4" />,
+    premium: <FontAwesomeIcon icon={faCircleCheck} className="size-4" />,
   },
 ]
 
@@ -58,7 +58,7 @@ const PricingPage = () => {
               <div className="self-end">/一個月</div>
             </div>
             <Button variant="outline" className="mt-4 w-full">
-              <FontAwesomeIcon icon={faCrown} className="mr-2" />
+              <FontAwesomeIcon icon={faCrown} className="mr-2 size-4" />
               購買
             </Button>
           </CardContent>
@@ -81,7 +81,7 @@ const PricingPage = () => {
               <div className="self-end">/三個月</div>
             </div>
             <Button variant="outline" className="mt-4 w-full">
-              <FontAwesomeIcon icon={faCrown} className="mr-2" />
+              <FontAwesomeIcon icon={faCrown} className="mr-2 size-4" />
               購買
             </Button>
           </CardContent>
@@ -98,7 +98,7 @@ const PricingPage = () => {
               <div className="self-end">/一年</div>
             </div>
             <Button variant="outline" className="mt-4 w-full">
-              <FontAwesomeIcon icon={faCrown} className="mr-2" />
+              <FontAwesomeIcon icon={faCrown} className="mr-2 size-4" />
               購買
             </Button>
           </CardContent>
