@@ -4,14 +4,13 @@ import { PrismaService } from '@server/prisma/prisma.service';
 import { CreateResumeDto } from './dto/create-resume.dto';
 import { GroupLayout, GroupType } from '@prisma/client';
 import { UserEntity } from '@server/users/entities/user.entity';
-import { getDownloadURL } from 'firebase/storage';
-import { FirebaseService } from '@server/firebase/firebase.service';
+import { SupabaseService } from '@server/supabase/supabase.service';
 
 @Injectable()
 export class ResumesService {
   constructor(
     private prisma: PrismaService,
-    private firebaseService: FirebaseService,
+    private supabaseService: SupabaseService,
   ) {}
 
   create(createResumeDto: CreateResumeDto, user: UserEntity) {
@@ -70,7 +69,7 @@ export class ResumesService {
     }
 
     if (resume.avatarUrl && resume.avatarUrl?.length > 0) {
-      resume.avatarUrl = await this.firebaseService.getAvatarUrl(
+      resume.avatarUrl = await this.supabaseService.retrieveAvatar(
         resume.avatarUrl,
       );
     }

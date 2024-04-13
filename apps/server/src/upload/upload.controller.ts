@@ -10,19 +10,21 @@ import {
 } from '@nestjs/common';
 import { UploadService } from './upload.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { FirebaseService } from '@server/firebase/firebase.service';
-import { JwtAuthGuard } from '@server/auth/jwt-auth.guard';
 import { UserEntity } from '@server/users/entities/user.entity';
 import { extname } from 'path';
+import { SupabaseService } from '@server/supabase/supabase.service';
+import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '@server/auth/jwt-auth.guard';
 
 const MAX_FILE_SIZE_1MB = 1 * 1024 * 1024;
 const VALID_UPLOAD_FILE_TYPES = /(jpg|jpeg|png)/;
 
 @Controller('upload')
+@ApiTags('upload')
 export class UploadController {
   constructor(
     private readonly uploadService: UploadService,
-    private readonly firebaseService: FirebaseService,
+    private readonly supabaseService: SupabaseService,
   ) {}
 
   @UseGuards(JwtAuthGuard)
@@ -46,7 +48,7 @@ export class UploadController {
   ) {
     const user = new UserEntity(req.user);
     const path = `avatars/${user.id}${extname(file.originalname)}`;
-    const fullPath = await this.firebaseService.uploadAvatar(path, file);
+    const fullPath = await this.supabaseService.uploadAvatar(path, file);
 
     return {
       path: fullPath,
