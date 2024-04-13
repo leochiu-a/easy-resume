@@ -8,7 +8,7 @@ import { ResumesModule } from './resumes/resumes.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { UploadModule } from './upload/upload.module';
-import { FirebaseModule } from './firebase/firebase.module';
+import { SupabaseModule } from './supabase/supabase.module';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { FirebaseModule } from './firebase/firebase.module';
     UsersModule,
     AuthModule,
     UploadModule,
-    FirebaseModule,
+    SupabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

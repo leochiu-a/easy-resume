@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { UploadService } from './upload.service';
 import { UploadController } from './upload.controller';
-import { FirebaseModule } from '@server/firebase/firebase.module';
+import { SupabaseModule } from '@server/supabase/supabase.module';
 
 @Module({
-  imports: [FirebaseModule],
+  imports: [SupabaseModule],
   controllers: [UploadController],
   providers: [UploadService],
 })
