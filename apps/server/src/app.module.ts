@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
@@ -12,7 +13,14 @@ import { SupabaseModule } from './supabase/supabase.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      validationSchema: Joi.object({
+        DATABASE_URL: Joi.string().required(),
+        SUPABASE_URL: Joi.string().required(),
+        SUPABASE_SERVICE_KEY: Joi.string().required(),
+        SUPABASE_AVATAR_BUCKET: Joi.string().required(),
+      }),
+    }),
     PrismaModule,
     ResumesModule,
     UsersModule,
