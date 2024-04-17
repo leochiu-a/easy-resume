@@ -14,7 +14,7 @@ import { UserEntity } from '@server/users/entities/user.entity';
 import { extname } from 'path';
 import { SupabaseService } from '@server/supabase/supabase.service';
 import { ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '@server/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 
 const MAX_FILE_SIZE_1MB = 1 * 1024 * 1024;
 const VALID_UPLOAD_FILE_TYPES = /(jpg|jpeg|png)/;

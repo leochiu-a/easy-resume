@@ -42,8 +42,12 @@ export class ResumesService {
     });
   }
 
-  findAll() {
-    return this.prisma.resume.findMany();
+  findAll(userId: string) {
+    return this.prisma.resume.findMany({
+      where: {
+        userId,
+      },
+    });
   }
 
   async findOne(id: string) {
