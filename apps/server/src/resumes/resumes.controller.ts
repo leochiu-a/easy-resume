@@ -41,8 +41,9 @@ export class ResumesController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: ResumeEntity, isArray: true })
-  async findAll() {
-    const resumes = await this.resumesService.findAll();
+  async findAll(@Req() req: any) {
+    const user = req.user as UserEntity;
+    const resumes = await this.resumesService.findAll(user.id);
     return resumes.map((resume) => new ResumeEntity(resume));
   }
 
