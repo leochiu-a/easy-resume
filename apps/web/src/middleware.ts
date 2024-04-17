@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
 const protectedRoutes = [
   /\/resumes$/,
@@ -22,6 +22,22 @@ export function middleware(request: NextRequest) {
 
   if (authRoutes.includes(request.nextUrl.pathname) && accessToken) {
     return Response.redirect(new URL("/resumes", request.url))
+  }
+
+  if (request.nextUrl.pathname.startsWith("/oauth")) {
+    const oAuthToken = request.nextUrl.searchParams.get("token") || ""
+
+    if (oAuthToken.length > 0) {
+      const response = NextResponse.redirect(new URL("/resumes", request.url))
+
+      response.cookies.set({
+        name: "accessToken",
+        value: oAuthToken,
+        maxAge: 60 * 60 * 24,
+      })
+
+      return response
+    }
   }
 }
 

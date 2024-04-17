@@ -1,9 +1,9 @@
 "use client"
 
-// import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons"
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { faGoogle } from "@fortawesome/free-brands-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Cookies from "js-cookie"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -38,6 +38,10 @@ export default function Login() {
   const router = useRouter()
   const { toast } = useToast()
 
+  const handleGoogleLogin = () => {
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`
+  }
+
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
     setLoading(true)
     AuthAPi.login(data.email, data.password)
@@ -57,25 +61,26 @@ export default function Login() {
   return (
     <>
       <Typography variant="h2">登入你的帳號</Typography>
-      <FormProvider {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full max-w-[480px]"
-        >
-          <Card className="pt-6">
-            <CardContent className="grid gap-4">
-              {/* TODO: 等待支援第三方登入 */}
-              {/* <div className="grid grid-cols-2 gap-6">
-            <Button
-              variant="outline"
-              className="bg-[#1371f0] text-white hover:bg-[#1163d3] hover:text-white"
-            >
-              <FontAwesomeIcon icon={faFacebook} width={16} className="mr-2" />
-              Facebook
-            </Button>
+
+      <Card className="w-full max-w-[480px] pt-6">
+        <CardContent className="grid gap-4">
+          <div className="grid grid-cols-1 gap-6">
+            {/* TODO: 等待支援 facebook 登入 */}
+            {/* <Button
+                  variant="outline"
+                  className="bg-[#1371f0] text-white hover:bg-[#1163d3] hover:text-white"
+                >
+                  <FontAwesomeIcon
+                    icon={faFacebook}
+                    width={16}
+                    className="mr-2"
+                  />
+                  Facebook
+                </Button> */}
             <Button
               variant="outline"
               className="bg-[#db4437] text-white hover:bg-[#c53d32] hover:text-white"
+              onClick={handleGoogleLogin}
             >
               <FontAwesomeIcon icon={faGoogle} width={16} className="mr-2" />
               Google
@@ -90,7 +95,13 @@ export default function Login() {
                 或使用電子郵件登入
               </span>
             </div>
-          </div> */}
+          </div>
+          <FormProvider {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="grid gap-4"
+              id="login"
+            >
               <FormField
                 control={form.control}
                 name="email"
@@ -129,28 +140,29 @@ export default function Login() {
                   </FormItem>
                 )}
               />
-            </CardContent>
-            <CardFooter>
-              <div className="flex-1">
-                <Button
-                  className="block w-full"
-                  type="submit"
-                  loading={loading}
-                >
-                  登入
-                </Button>
+            </form>
+          </FormProvider>
+        </CardContent>
+        <CardFooter>
+          <div className="flex-1">
+            <Button
+              className="block w-full"
+              type="submit"
+              loading={loading}
+              form="login"
+            >
+              登入
+            </Button>
 
-                <div className="mt-4 flex items-center justify-center">
-                  還沒註冊？
-                  <Button variant="link" asChild>
-                    <Link href="/register">快速註冊</Link>
-                  </Button>
-                </div>
-              </div>
-            </CardFooter>
-          </Card>
-        </form>
-      </FormProvider>
+            <div className="mt-4 flex items-center justify-center">
+              還沒註冊？
+              <Button variant="link" asChild>
+                <Link href="/register">快速註冊</Link>
+              </Button>
+            </div>
+          </div>
+        </CardFooter>
+      </Card>
     </>
   )
 }
