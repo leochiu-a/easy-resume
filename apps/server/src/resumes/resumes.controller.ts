@@ -19,8 +19,8 @@ import { ResumesService } from './resumes.service';
 import { UpdateResumeDto } from './dto/update-resume.dto';
 import { ResumeEntity } from './entities/resume.entity';
 import { CreateResumeDto } from './dto/create-resume.dto';
-import { JwtAuthGuard } from '@server/auth/jwt-auth.guard';
-import { UserEntity } from '@server/users/entities/user.entity';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { UserEntity } from '../users/entities/user.entity';
 
 @Controller('resumes')
 @ApiTags('resumes')

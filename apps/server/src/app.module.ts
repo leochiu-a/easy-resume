@@ -15,10 +15,14 @@ import { SupabaseModule } from './supabase/supabase.module';
   imports: [
     ConfigModule.forRoot({
       validationSchema: Joi.object({
+        FRONTEND_URL: Joi.string().required(),
         DATABASE_URL: Joi.string().required(),
         SUPABASE_URL: Joi.string().required(),
         SUPABASE_SERVICE_KEY: Joi.string().required(),
         SUPABASE_AVATAR_BUCKET: Joi.string().required(),
+        GOOGLE_CLIENT_ID: Joi.string().required(),
+        GOOGLE_CLIENT_SECRET: Joi.string().required(),
+        GOOGLE_CALLBACK_URL: Joi.string().required(),
       }),
     }),
     PrismaModule,

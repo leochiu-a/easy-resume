@@ -1,8 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PrismaService } from '@server/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
+import { GoogleLoginUserDto } from './dto/google-login.dto';
 
 @Injectable()
 export class AuthService {
@@ -32,5 +37,32 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign({ userId: user.id }),
     };
+  }
+
+  async googleLogin(user: GoogleLoginUserDto) {
+    if (!user) {
+      throw new UnauthorizedException('No user from google');
+    }
+
+    const { firstName, lastName, email } = user;
+    const userData = await this.prismaService.user.findUnique({
+      where: { email },
+    });
+    let userId = userData?.id;
+
+    if (!userData) {
+      const newUserData = await this.prismaService.user.create({
+        data: {
+          email,
+          name: `${firstName} ${lastName}`,
+          password: 'password1234',
+        },
+      });
+      userId = newUserData.id;
+    }
+
+    const access_token = this.jwtService.sign({ userId });
+
+    return { access_token };
   }
 }
